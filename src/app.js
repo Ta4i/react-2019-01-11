@@ -5,13 +5,14 @@ import Select from 'react-select';
 
 class App extends Component {
     state = {
-        selected: null
+        selected: []
     }
   render() {
     return (
       <div>
           <UserForm/>
           <Select
+              isMulti
               options={this.options}
               value={this.state.selected}
               onChange={this.handleSelectChange}
