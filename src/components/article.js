@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import withComments from "../decorators/with-comments";
 
 function Comment({ comment }) {
     return (
@@ -10,11 +11,14 @@ function Comment({ comment }) {
 }
 
 class Article extends PureComponent {
-    state = {
-        shouldDisplayComments: false
-    }
     render() {
-        const { article: { title }, isOpen } = this.props
+        const {
+            article: { title, comments },
+            isOpen,
+            toggleComments,
+            shouldDisplayComments
+        } = this.props
+        const hasComments = (comments && comments.length) ? true : false
         console.log('render Article');
         return (
             <div>
@@ -25,8 +29,9 @@ class Article extends PureComponent {
                         {isOpen ? 'close' : 'open'}
                     </button>
                     <button
-                        onClick={this.toggleComments}>
-                        {this.state.shouldDisplayComments ? 'Hide comments' : 'Show comments'}
+                        onClick={toggleComments}
+                        disabled={!hasComments}>
+                        {shouldDisplayComments ? 'Hide comments' : 'Show comments'}
                     </button>
                 </h3>
                 {this.body}
@@ -43,12 +48,6 @@ class Article extends PureComponent {
         this.props.toggleArticle(null)
     }
 
-    toggleComments = () => {
-        this.setState(prevState => ({
-            shouldDisplayComments: !prevState.shouldDisplayComments
-        }))
-    }
-
     get body() {
         if (!this.props.isOpen) return null
         return (
@@ -57,8 +56,10 @@ class Article extends PureComponent {
     }
 
     get comments() {
-        const { article: { comments } } = this.props
-        if (!comments || !this.state.shouldDisplayComments) return null
+        const { article: { comments }, shouldDisplayComments } = this.props
+        if (!comments || !comments.length || !shouldDisplayComments) {
+            return null
+        }
         const commentElements = comments.map(comment =>
             <Comment key={comment.id} comment={comment} />
         )
@@ -66,4 +67,4 @@ class Article extends PureComponent {
     }
 }
 
-export default Article
+export default withComments(Article)
