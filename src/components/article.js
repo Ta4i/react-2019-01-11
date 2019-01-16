@@ -18,7 +18,7 @@ class Article extends PureComponent {
     }
 
     toggleOpen = () => {
-        this.props.toggleArticle(this.props.article.id)
+        this.props.toggleArticle(this.props.isOpen ? null : this.props.article.id)
     }
 
     get body() {
