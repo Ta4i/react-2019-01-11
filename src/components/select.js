@@ -9,6 +9,8 @@ class MySelect extends Component {
    render() {
       return (
          <Select
+            isMulti
+            simpleValue
             options={this.options}
             value={this.state.selected}
             onChange={this.handleSelectChange}
