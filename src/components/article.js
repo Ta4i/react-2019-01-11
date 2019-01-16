@@ -1,14 +1,18 @@
 import React, {PureComponent} from 'react'
+import CommentList from './comment-list';
 
 class Article extends PureComponent {
     render() {
-        const {article: {title}, isOpen} = this.props
+        const {
+            article: {title},
+            isOpen
+        } = this.props
         console.log('render Article');
         return (
             <div>
                 <h3>
                     {title}
-                    <button onClick={this.toggleOpen}>
+                    <button onClick={() => this.toggleOpen(isOpen)}>
                         {isOpen ? 'close' : 'open'}
                     </button>
                 </h3>
@@ -17,15 +21,23 @@ class Article extends PureComponent {
         )
     }
 
-    toggleOpen = () => {
-        this.props.toggleArticle(this.props.article.id)
+    toggleOpen = (isOpen) => {
+        this.props.toggleArticle(!isOpen ? this.props.article.id : null)
     }
 
     get body() {
-        if (!this.props.isOpen) return null
-        return (
-            <p>{this.props.article.text}</p>
-        )
+        const {
+            article: {comments},
+            isOpen
+        } = this.props
+
+        return !isOpen ? null
+            : (
+                <div>
+                    <div>{this.props.article.text}</div>
+                    <CommentList comments={comments} />
+                </div>
+            )
     }
 }
 
