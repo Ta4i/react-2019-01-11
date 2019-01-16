@@ -10,8 +10,8 @@ const hoursInDay = 24
 
 class DateRange extends Component {
     state = {
-        startDate: new Date(),
-        endDate: new Date()
+        startDate: null,
+        endDate: null
     }
     render() {
         return (
@@ -35,12 +35,14 @@ class DateRange extends Component {
         )
     }
     handleChangeStart = (date) => {
-        if (date < this.state.endDate) {
+        const endDate = this.state.endDate
+        if (!endDate || (endDate && date <= endDate)) {
             this.setState({ startDate: date })
         }
     }
     handleChangeEnd = (date) => {
-        if (date > this.state.startDate) {
+        const startDate = this.state.startDate
+        if (!startDate || (date >= startDate)) {
             this.setState({ endDate: date })
         }
     }
