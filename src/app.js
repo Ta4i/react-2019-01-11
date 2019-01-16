@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ArticleList from './components/article-list';
 import UserForm from './components/user-form';
 import Select from 'react-select';
+import DatePickerRange from "./components/DatePickerRange";
 
 class App extends Component {
     state = {
@@ -12,10 +13,12 @@ class App extends Component {
       <div>
           <UserForm/>
           <Select
+              isMulti
               options={this.options}
               value={this.state.selected}
               onChange={this.handleSelectChange}
           />
+          <DatePickerRange/>
           <ArticleList
               articles={this.props.articles}
           />
