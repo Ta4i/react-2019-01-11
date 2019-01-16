@@ -11,6 +11,7 @@ class ArticleList extends Component{
         const {
             openItemId,
             toggleOpenArticle,
+            
             articles
         } = this.props
 

@@ -3,7 +3,7 @@ import React, {PureComponent} from 'react'
 class Article extends PureComponent {
     render() {
         const {article: {title}, isOpen} = this.props
-        console.log('render Article');
+        
         return (
             <div>
                 <h3>
@@ -17,9 +17,7 @@ class Article extends PureComponent {
         )
     }
 
-    toggleOpen = () => {
-        this.props.toggleArticle(this.props.article.id)
-    }
+    toggleOpen = () => this.props.isOpen ? this.props.toggleArticle(null) : this.props.toggleArticle(this.props.article.id)
 
     get body() {
         if (!this.props.isOpen) return null
