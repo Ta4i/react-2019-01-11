@@ -1,4 +1,6 @@
-import React, {PureComponent} from 'react'
+import React, {PureComponent} from 'react';
+import Comments from './comments';
+
 
 class Article extends PureComponent {
     render() {
@@ -11,6 +13,7 @@ class Article extends PureComponent {
                     <button onClick={this.toggleOpen}>
                         {isOpen ? 'close' : 'open'}
                     </button>
+                   
                 </h3>
                 {this.body}
             </div>
@@ -23,8 +26,12 @@ class Article extends PureComponent {
 
     get body() {
         if (!this.props.isOpen) return null
+        const {article: {comments, text}} = this.props
         return (
-            <p>{this.props.article.text}</p>
+            <div>
+                <p>{text}</p>
+                <Comments comments={comments}></Comments>
+            </div>
         )
     }
 }

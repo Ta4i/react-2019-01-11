@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Article from './article';
+
 import accordion from '../decorators/accordion';
 
 class ArticleList extends Component{
