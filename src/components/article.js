@@ -1,9 +1,12 @@
 import React, {PureComponent} from 'react'
 
+import CommentsList from './comments-list'
+
 class Article extends PureComponent {
     render() {
         const {article: {title}, isOpen} = this.props
         console.log('render Article');
+
         return (
             <div>
                 <h3>
@@ -13,6 +16,7 @@ class Article extends PureComponent {
                     </button>
                 </h3>
                 {this.body}
+                <p> ------------------------ </p>
             </div>
         )
     }
@@ -22,9 +26,16 @@ class Article extends PureComponent {
     }
 
     get body() {
+        const {article, isGlobalOpenComment} = this.props;
+
         if (!this.props.isOpen) return null
         return (
-            <p>{this.props.article.text}</p>
+            <div>
+                <p>{this.props.article.text}</p>
+                <CommentsList 
+                    article={article}
+                    isGlobalOpenComment={isGlobalOpenComment}/>
+            </div>            
         )
     }
 }

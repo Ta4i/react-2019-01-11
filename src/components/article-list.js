@@ -11,7 +11,8 @@ class ArticleList extends Component{
         const {
             openItemId,
             toggleOpenArticle,
-            articles
+            articles,
+            isGlobalOpenComment,
         } = this.props
 
         return articles.map(article => (
@@ -20,6 +21,7 @@ class ArticleList extends Component{
                     article={article}
                     isOpen={article.id === openItemId}
                     toggleArticle={toggleOpenArticle}
+                    isGlobalOpenComment={isGlobalOpenComment}
                 />
             </li>
         ))
