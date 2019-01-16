@@ -1,17 +1,17 @@
-import React, {Component} from 'react';
-import ArticleList from './components/article-list';
-import UserForm from './components/user-form';
-import MySelect from './components/select';
+import React, {Component} from 'react'
+import ArticleList from './components/article-list'
+import UserForm from './components/user-form'
+import MySelect from './components/select'
+import MyDatePicker from './components/datepicker'
+
+import './app.css'
 
 class App extends Component {
-   state = {
-      selected: null
-   }
-
    render() {
       return (
          <div>
             <UserForm/>
+            <MyDatePicker/>
             <MySelect
                articles={this.props.articles}
             />
