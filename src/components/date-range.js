@@ -53,7 +53,7 @@ class DateRange extends Component {
         const dateDiffMillis = this.state.endDate - this.state.startDate
         const dateDiffDays = dateDiffMillis / (
             millisInSecond * secondsInMinute * minutesInHour * hoursInDay
-        )
+        ) + 1
         return `${dateDiffDays} ${dateDiffDays === 1 ? 'day' : 'days'}`
     }
 }
