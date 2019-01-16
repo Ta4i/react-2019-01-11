@@ -14,6 +14,7 @@ class App extends Component {
             <div>
                 <UserForm />
                 <Select
+                    isMulti
                     options={this.options}
                     value={this.state.selected}
                     onChange={this.handleSelectChange}
@@ -25,6 +26,7 @@ class App extends Component {
             </div>
         );
     }
+    handleSelectChange = (selected) => this.setState({ selected })
     get options() {
         return this.props.articles.map(article => ({
             value: article.id,
