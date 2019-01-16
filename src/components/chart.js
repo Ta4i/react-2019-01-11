@@ -8,10 +8,7 @@ class Chart extends Component {
     }
     setContainerRef = (ref) => {
          this.constainer = ref
-    }
-    componentDidUpdate() {
-        //$(this.container)
-    }
+    };
 }
 
 export default Chart

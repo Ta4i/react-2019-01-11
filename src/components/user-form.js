@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 class UserForm extends Component {
     state = {
         user: ''
-    }
+    };
 
     render() {
         return (
@@ -15,7 +15,7 @@ class UserForm extends Component {
     }
 
     handleChange = (event) => {
-        event.preventDefault()
+        event.preventDefault();
 
         if (event.target.value.length > 10) {
             return this.setState({
