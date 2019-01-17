@@ -28,8 +28,6 @@ class CommentsList extends PureComponent {
    }
 
    get getComments() {
-      console.log(this.openComment, this.props.openComment);
-      if (!this.props.openComment) return null
       const comments = this.props.commentList
       return comments.map(comment => (
         <li key={comment.id}>
