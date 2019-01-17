@@ -32,8 +32,7 @@ class Article extends PureComponent {
     }
 
     get comments() {
-        const {article: {comments}} = this.props
-        
+        const {article: {comments}} = this.props        
         
         return (
             <CommentList
