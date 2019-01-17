@@ -39,6 +39,7 @@ class App extends Component {
         <br/>
         <br/>
         <Select
+          isMulti
           options={this.options}
           value={this.state.selected}
           onChange={this.handleSelectChange}
