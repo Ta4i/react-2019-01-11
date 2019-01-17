@@ -8,7 +8,7 @@ class MyDatePicker extends Component {
       super(props);
       this.state = {
          startDate: new Date(),
-         endDate: null
+         endDate: new Date()
       };
       this.handleChangeStart = this.handleChangeStart.bind(this);
       this.handleChangeEnd = this.handleChangeEnd.bind(this);
@@ -38,7 +38,7 @@ class MyDatePicker extends Component {
                   maxDate={this.state.endDate}
                   onChange={this.handleChangeStart}
                />
-               <h5>Start:</h5>
+               <h5>Start:{this.state.startDate.toLocaleDateString('en-US')}</h5>
             </div>
             <div className="datepicker-part">
                <DatePicker
@@ -49,7 +49,7 @@ class MyDatePicker extends Component {
                   minDate={this.state.startDate}
                   onChange={this.handleChangeEnd}
                />
-               <h5>End:</h5>
+               <h5>End:{this.state.endDate.toLocaleDateString('en-US')}</h5>
             </div>
          </div>
       );

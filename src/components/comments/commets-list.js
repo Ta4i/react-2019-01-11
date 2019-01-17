@@ -3,10 +3,6 @@ import Comment from './comment'
 import comments from '../../decorators/comments';
 
 class CommentsList extends PureComponent {
-   // state = {
-   //    openComment: null
-   // }
-
    render() {
       const {
          openComment,
