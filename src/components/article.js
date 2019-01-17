@@ -22,7 +22,10 @@ class Article extends PureComponent {
     }
 
     get body() {
-        if (!this.props.isOpen) return null
+        if (!this.props.isOpen){
+
+            return null
+        }
         return (
             <p>{this.props.article.text}</p>
         )
