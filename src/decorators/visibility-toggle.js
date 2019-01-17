@@ -1,18 +1,20 @@
-// HOC - higher order component
 import React, {Component} from 'react';
 
 export default (OriginalComponent) =>
     class DecoratedComponent extends Component {
         state = {
-            openItemId: null
+            isOpen: false
         }
-        toggleOpenArticle = (id) => this.setState({openItemId: this.state.openItemId === id ? null : id})
+        toggleOpen = () => {
+          this.setState({isOpen: !this.state.isOpen})
+          console.log('toggleOpen')
+        }
 
         render() {
             return <OriginalComponent
                 {...this.props}
                 {...this.state}
-                toggleOpenArticle={this.toggleOpenArticle}
+                toggleOpen={this.toggleOpen}
             />;
         }
 
