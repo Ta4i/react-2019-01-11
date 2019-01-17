@@ -1,9 +1,5 @@
 import React, {PureComponent} from 'react'
-
-
 class Comment extends PureComponent {
-    
-
     render() {
         const {        
             user,        
@@ -12,12 +8,8 @@ class Comment extends PureComponent {
        return <div>
            <div>{user}</div> 
            <div>{text}</div>
-       
        </div>
     }
-    
-
-
 }
 
 export default Comment

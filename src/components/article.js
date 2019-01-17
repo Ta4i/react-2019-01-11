@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react'
-import Comments from './Comments'
+import Comments from './Comment-list'
 class Article extends PureComponent {
     state = {
      commentOpen: false       

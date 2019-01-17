@@ -6,14 +6,13 @@ export default (OriginalComponent) =>
         state = {
             commentOpen: false
         }
-        toggleOpenArticle = (id) => this.setState({openItemId: id})
-        
+        toggleComments =() => this.setState({commentOpen: !this.state.commentOpen})
+
         render() {
             return <OriginalComponent
                 {...this.props}
                 {...this.state}
-                toggleOpenArticle={this.toggleOpenArticle}
-                
+                toggleComments={this.toggleComments}
             />;
         }
 
