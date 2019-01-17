@@ -1,9 +1,11 @@
 import React, {PureComponent} from 'react'
+import CommentList from './comment-list'
 
 class Article extends PureComponent {
+
     render() {
         const {article: {title}, isOpen} = this.props
-        console.log('render Article');
+
         return (
             <div>
                 <h3>
@@ -12,7 +14,8 @@ class Article extends PureComponent {
                         {isOpen ? 'close' : 'open'}
                     </button>
                 </h3>
-                {this.body}
+                {this.body}      
+                {this.comments}               
             </div>
         )
     }
@@ -25,6 +28,16 @@ class Article extends PureComponent {
         if (!this.props.isOpen) return null
         return (
             <p>{this.props.article.text}</p>
+        )
+    }
+
+    get comments() {
+        const {article: {comments}} = this.props        
+        
+        return (
+            <CommentList
+                comments={comments} 
+            />
         )
     }
 }

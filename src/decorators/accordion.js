@@ -6,8 +6,12 @@ export default (OriginalComponent) =>
         state = {
             openItemId: null
         }
-        toggleOpenArticle = (id) => this.setState({openItemId: id})
-
+        
+        toggleOpenArticle = (openItemId) => {
+                this.setState({openItemId: openItemId === this.state.openItemId ? null : openItemId
+            })
+        }        
+        
         render() {
             return <OriginalComponent
                 {...this.props}
