@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react'
 import Comment from './comment'
+// import comments from '../decorators/comments';
 
 class CommentsList extends PureComponent {
   state = {
@@ -14,7 +15,9 @@ class CommentsList extends PureComponent {
             {this.state.isOpen ? 'close' : 'open'}
           </button>
         </h4>
-        {this.comments}
+        <ul>
+          {this.comments}
+        </ul>
       </div>
     )
   }
@@ -27,11 +30,11 @@ class CommentsList extends PureComponent {
     if(!this.state.isOpen) return null
     const comments = this.props.comments
     return comments.map(comment => (
-      <div key={comment.id}>
+      <li key={comment.id}>
         <Comment
           comment={comment}
         />
-      </div>
+      </li>
     ))
   }
 }

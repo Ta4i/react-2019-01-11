@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react'
-import CommentsList from './commets-list'
+import CommentsList from '../comments/commets-list'
 
 class Article extends PureComponent {
     render() {

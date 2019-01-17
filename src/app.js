@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import ArticleList from './components/article-list'
+import ArticleList from './components/article/article-list'
 import UserForm from './components/user-form'
 import MySelect from './components/select'
 import MyDatePicker from './components/datepicker'
