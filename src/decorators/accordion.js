@@ -8,7 +8,7 @@ export default (OriginalComponent) =>
         }
         toggleOpenArticle = (id) =>{
 
-          if(id == this.state.openItemId){
+          if(id === this.state.openItemId){
             this.setState({openItemId: null})
           }else{
             this.setState({openItemId: id})
