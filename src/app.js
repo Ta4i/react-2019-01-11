@@ -9,7 +9,7 @@ class App extends Component {
         selected: null
     };
   render() {
-      console.log('[QWE]', this.options);
+      // console.log('[QWE]', this.options);
     return (
       <div>
           <Picker/>

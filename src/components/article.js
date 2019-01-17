@@ -1,4 +1,5 @@
 import React, {PureComponent} from 'react'
+import Reviews from './Reviews/reviews'
 
 class Article extends PureComponent {
     state= {
@@ -7,9 +8,7 @@ class Article extends PureComponent {
     };
     render() {
         const {isOpen, isOpenComments } = this.state;
-        const {article: {title}} = this.props;
-        // const {comments: {text}} = this.props.article;
-        console.log('render Articlee', this.props.article.comments);
+        const {article: {title}, article: {comments} } = this.props;
         return (
             <div>
                 <h3>
@@ -20,13 +19,9 @@ class Article extends PureComponent {
                 </h3>
                 {this.body}
                 <div>
-                <h6>
-                    {title}
-                    <button onClick={this.commentsOpen}>
-                        {isOpenComments ? 'close' : 'open'}
-                    </button>
-                </h6>
-                {this.comments}
+                  <Reviews
+                    comments={comments}
+                  />
                 </div>
             </div>
 
@@ -37,10 +32,6 @@ class Article extends PureComponent {
         this.setState({isOpen: !this.state.isOpen})
     };
 
-    commentsOpen = () => {
-        this.setState({isOpenComments: !this.state.isOpenComments})
-    };
-
 
     get body() {
         if (!this.state.isOpen) return null;
@@ -49,12 +40,6 @@ class Article extends PureComponent {
         );
     }
 
-    get comments() {
-        if (!this.state.isOpenComments) return null;
-        return (
-            <p>AAAA</p>
-        );
-    }
 }
 
 export default Article
