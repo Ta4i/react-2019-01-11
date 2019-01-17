@@ -7,7 +7,7 @@ class Article extends PureComponent {
     render() {
         const {isOpen} = this.state;
         const {article: {title}} = this.props;
-        console.log('render Article', this.props);
+        console.log('render Article', this.props.article.comments);
         return (
             <div>
                 <h3>
