@@ -33,7 +33,7 @@ class Article extends PureComponent {
         if (!this.props.isOpen || !this.props.article.comments) return null
         return(
             <CommentsList
-              comments={this.props.article.comments}
+              commentList={this.props.article.comments}
             />
         )
     }

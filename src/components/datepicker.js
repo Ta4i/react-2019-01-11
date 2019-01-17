@@ -39,6 +39,7 @@ class MyDatePicker extends Component {
                   onChange={this.handleChangeStart}
                />
                <h5>Start:</h5>
+               <span></span>
             </div>
             <div className="datepicker-part">
                <DatePicker

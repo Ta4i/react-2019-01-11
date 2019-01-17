@@ -1,42 +1,44 @@
-import React, { PureComponent } from 'react'
+import React, {PureComponent} from 'react'
 import Comment from './comment'
-// import comments from '../decorators/comments';
+import comments from '../../decorators/comments';
 
 class CommentsList extends PureComponent {
-  state = {
-    isOpen: null
-  }
-  render() {
-    return (
-      <div>
-        <h4>Comments:
-          <button
-            onClick={this.toggleOpen}>
-            {this.state.isOpen ? 'close' : 'open'}
-          </button>
-        </h4>
-        <ul>
-          {this.comments}
-        </ul>
-      </div>
-    )
-  }
+   // state = {
+   //    openComment: null
+   // }
 
-  toggleOpen = () => {
-    this.setState({isOpen: (!this.state.isOpen)})
-  }
+   render() {
+      const {
+         openComment,
+         toggleOpenComments
+      } = this.props
+      return (
+         <div>
+            <h4>Comments:
+               <button
+                  onClick={toggleOpenComments}>
+                  {openComment ? 'close' : 'open'}
+               </button>
+            </h4>
+            <ul>
+               {this.getComments}
+            </ul>
+         </div>
+      )
+   }
 
-  get comments() {
-    if(!this.state.isOpen) return null
-    const comments = this.props.comments
-    return comments.map(comment => (
-      <li key={comment.id}>
-        <Comment
-          comment={comment}
-        />
-      </li>
-    ))
-  }
+   get getComments() {
+      console.log(this.openComment, this.props.openComment);
+      if (!this.props.openComment) return null
+      const comments = this.props.commentList
+      return comments.map(comment => (
+        <li key={comment.id}>
+          <Comment
+            comment={comment}
+          />
+        </li>
+      ))
+   }
 }
 
-export default CommentsList
+export default comments(CommentsList)
