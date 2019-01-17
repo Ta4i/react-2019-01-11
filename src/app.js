@@ -1,34 +1,31 @@
 import React, { Component } from 'react';
 import ArticleList from './components/article-list';
 import UserForm from './components/user-form';
-import Select from 'react-select';
 
+import Daterange from './components/Daterange'
+import "react-datepicker/dist/react-datepicker.css";
+import Multiselect from './components/Multiselect'
 class App extends Component {
-    state = {
-        selected: null
-    }
+
   render() {
     return (
       <div>
-          <UserForm/>
-          <Select
-              options={this.options}
-              value={this.state.selected}
-              onChange={this.handleSelectChange}
-          />
-          <ArticleList
-              articles={this.props.articles}
-          />
+        <UserForm/>
+
+        <Multiselect articles={this.props.articles}/>
+            
+        <Daterange />
+          
+        <ArticleList
+            articles={this.props.articles}
+        />
       </div>
     );
   }
-    handleSelectChange = (selected) => this.setState({selected})
-  get options() {
-      return this.props.articles.map(article => ({
-          value: article.id,
-          label: article.title
-      }))
-  }
+
+
+
+
 }
 
 export default App;

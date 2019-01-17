@@ -13,7 +13,7 @@ class ArticleList extends Component{
             toggleOpenArticle,
             articles
         } = this.props
-
+        
         return articles.map(article => (
             <li key={article.id}>
                 <Article
