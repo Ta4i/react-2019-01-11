@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Article from './article';
 import accordion from '../decorators/accordion';
+import ReviewsList from './Reviews/reviews-list';
 
 class ArticleList extends Component{
     render() {
@@ -11,7 +12,8 @@ class ArticleList extends Component{
         const {
             openItemId,
             toggleOpenArticle,
-            articles
+            articles,
+            comments,
         } = this.props;
 
         return articles.map(article => (
@@ -21,6 +23,11 @@ class ArticleList extends Component{
                     isOpen={article.id === openItemId}
                     toggleArticle={toggleOpenArticle}
                 />
+                {/*<ReviewsList*/}
+                    {/*comments={comments}*/}
+                    {/*isOpen={comments.id === openItemId}*/}
+                    {/*toggleArticle={toggleOpenArticle}*/}
+                {/*/>*/}
             </li>
         ))
     }

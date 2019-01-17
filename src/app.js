@@ -9,6 +9,7 @@ class App extends Component {
         selected: null
     };
   render() {
+      console.log('[QWE]', this.options);
     return (
       <div>
           <Picker/>
@@ -20,17 +21,19 @@ class App extends Component {
               isMulti
           />
           <ArticleList
+              // articles={()=> (console.log('[QWE]', this.props.articles))}
               articles={this.props.articles}
           />
       </div>
     );
   }
-    handleSelectChange = (selected) => this.setState({selected})
+    handleSelectChange = (selected) => this.setState({selected});
+
   get options() {
       return this.props.articles.map(article => ({
           value: article.id,
           label: article.title
-      }))
+      }));
   }
 }
 
