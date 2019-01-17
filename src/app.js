@@ -45,13 +45,13 @@ class App extends Component {
   
   handleChangeStart = (startDate) => {
     if (startDate >= this.state.endDate) return;
-    console.log((startDate - this.state.endDate).get)
+    console.log((startDate))
     this.setState({startDate})
   }
   
   handleChangeEnd = (endDate) => {
     if (this.state.startDate >= endDate) return;
-    console.log(this.state.endDate)
+    console.log(endDate)
     this.setState({endDate})
   }
   
