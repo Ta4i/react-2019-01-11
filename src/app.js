@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ArticleList from './components/article-list';
 import UserForm from './components/user-form';
+import DatePicker from './components/datepicker';
 import Select from 'react-select';
 
 class App extends Component {
