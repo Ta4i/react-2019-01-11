@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ArticleList from './components/article-list';
 import UserForm from './components/user-form';
-import Select from 'react-select';
+import DatePicker from './components/datepicker';
+import Multiselect from './components/select';
 
 class App extends Component {
     state = {
@@ -11,11 +12,8 @@ class App extends Component {
     return (
       <div>
           <UserForm/>
-          <Select
-              options={this.options}
-              value={this.state.selected}
-              onChange={this.handleSelectChange}
-          />
+          <Multiselect articles={this.props.articles}/>
+          <DatePicker/>
           <ArticleList
               articles={this.props.articles}
           />

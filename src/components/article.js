@@ -1,23 +1,24 @@
-import React, {PureComponent} from 'react'
+import React, {PureComponent} from 'react';
+import CommentsList from './comments-list';
 
 class Article extends PureComponent {
     render() {
         const {article: {title}, isOpen} = this.props
-        console.log('render Article');
         return (
             <div>
                 <h3>
                     {title}
-                    <button onClick={this.toggleOpen}>
+                    <button onClick={this.toggleClick}>
                         {isOpen ? 'close' : 'open'}
                     </button>
                 </h3>
                 {this.body}
+                {this.comments}
             </div>
         )
     }
 
-    toggleOpen = () => {
+    toggleClick = () => {
         this.props.toggleArticle(this.props.article.id)
     }
 
@@ -27,6 +28,14 @@ class Article extends PureComponent {
             <p>{this.props.article.text}</p>
         )
     }
+
+    get comments() {
+        if (!this.props.isOpen) return null
+
+        return <CommentsList
+          comments={this.props.article.comments}
+        />
+    }
 }
 
-export default Article
+export default Article;
