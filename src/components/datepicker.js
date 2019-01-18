@@ -24,21 +24,28 @@ class DateRange extends Component {
       }
   
       return (
-        <div>
-          <DatePicker
-            selected={this.state.startDate}
-            selectsStart
-            startDate={this.state.startDate}
-            endDate={this.state.endDate}
-            onChange={this.handleChangeStart}
-          />
-          <DatePicker
-            selected={this.state.endDate}
-            selectsEnd
-            startDate={this.state.startDate}
-            endDate={this.state.endDate}
-            onChange={this.handleChangeEnd}
-          />
+        <div style={{width: '300px'}}>
+          <p>DatePicker</p>
+          <ul>
+              <li>
+              <DatePicker
+                selected={this.state.startDate}
+                selectsStart
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+                onChange={this.handleChangeStart}
+              />
+              </li>
+              <li>
+              <DatePicker
+                selected={this.state.endDate}
+                selectsEnd
+                startDate={this.state.startDate}
+                endDate={this.state.endDate}
+                onChange={this.handleChangeEnd}
+              />
+              </li>
+          </ul>
           <div>{datesChosen ? datesChosen : ''}</div>
         </div>
       )
