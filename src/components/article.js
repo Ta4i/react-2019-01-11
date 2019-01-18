@@ -25,13 +25,8 @@ class Article extends PureComponent {
     toggleOpen = () => {
         this.props.toggleArticle(this.props.article.id)
     }
-    toggleOpenComments = () => {
-        this.setState({
-            isOpenComments: !this.state.isOpenComments
-        })
-    }
+
     get body() {
-        const {isOpenComments} = this.state
         const {article: {comments}} = this.props
         if (!this.props.isOpen){
             return null
@@ -39,13 +34,8 @@ class Article extends PureComponent {
         return (
           <div>
             <p>{this.props.article.text}</p>
-              <button onClick={this.toggleOpenComments}>
-              {this.props.isOpenComments ? 'closeComments' : 'openComments'}
-                </button>
-
               <CommentList
                 comments={comments}
-                isOpenComments={isOpenComments}
               />
           </div>
         )
