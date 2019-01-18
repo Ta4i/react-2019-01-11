@@ -8,7 +8,7 @@ class Article extends PureComponent {
             <div>
                 <h3>
                     {title}
-                    <button onClick={this.toggleOpen}>
+                    <button onClick={this.toggleClick}>
                         {isOpen ? 'close' : 'open'}
                     </button>
                 </h3>
@@ -17,9 +17,7 @@ class Article extends PureComponent {
         )
     }
 
-    toggleOpen = () => {
-        this.props.toggleArticle(this.props.article.id)
-    }
+    toggleClick = () => this.props.isOpen ? this.props.toggleArticle(null) : this.props.toggleArticle(this.props.article.id)
 
     get body() {
         if (!this.props.isOpen) return null
