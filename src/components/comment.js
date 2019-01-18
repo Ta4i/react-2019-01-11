@@ -2,8 +2,7 @@ import React, {PureComponent} from 'react';
 
 class Comment extends PureComponent {
   render() {
-    const {user, text} = this.props.comment;
-    console.log('render Comment');
+    const {user, text} = this.props.comment
 
     return (
       <div>
@@ -16,7 +15,6 @@ class Comment extends PureComponent {
       </div>
     )
   }
-
 }
 
 export default Comment;

@@ -1,18 +1,19 @@
 import React, {Component} from 'react';
 import Comment from './comment';
+import toggleVisibility from '../decorators/toggle-visible';
 
 class CommentsList extends Component {
-  state = {
-    isShown: false
-  };
-
-  toggleClick = () => this.setState({isShown: !this.state.isShown});
 
   render() {
+    const {
+      isVisible,
+      toggleVisibility
+    } = this.props
+
     return (
       <div>
-        <button onClick={this.toggleClick}>
-          {this.state.isShown ? 'Hide Comments' : 'Show Comments'}
+        <button onClick={toggleVisibility}>
+          {isVisible ? 'Hide Comments' : 'Show Comments'}
         </button>
         {this.comments}
       </div>
@@ -20,15 +21,11 @@ class CommentsList extends Component {
   }
 
   get comments() {
-    if (!this.state.isShown) return null;
-
-    const {
-      comments
-    } = this.props;
+    if (!this.props.isVisible) return null
 
     return (
       <ul style={{maxWidth: '50%'}}>
-        {comments.map(comment => (
+        {this.props.comments.map(comment => (
           <li key={comment.id}>
             <Comment
               comment={comment}
@@ -40,4 +37,4 @@ class CommentsList extends Component {
   }
 }
 
-export default CommentsList; 
+export default toggleVisibility(CommentsList);

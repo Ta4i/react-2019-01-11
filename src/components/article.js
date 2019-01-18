@@ -4,7 +4,6 @@ import CommentsList from './comments-list';
 class Article extends PureComponent {
     render() {
         const {article: {title}, isOpen} = this.props
-        console.log('render Article');
         return (
             <div>
                 <h3>
@@ -19,7 +18,9 @@ class Article extends PureComponent {
         )
     }
 
-    toggleClick = () => this.props.isOpen ? this.props.toggleArticle(null) : this.props.toggleArticle(this.props.article.id)
+    toggleClick = () => {
+        this.props.toggleArticle(this.props.article.id)
+    }
 
     get body() {
         if (!this.props.isOpen) return null
@@ -29,12 +30,12 @@ class Article extends PureComponent {
     }
 
     get comments() {
-        if (!this.props.isOpen) return null;
+        if (!this.props.isOpen) return null
 
         return <CommentsList
           comments={this.props.article.comments}
-        />;
+        />
     }
 }
 
-export default Article
+export default Article;
