@@ -1,28 +1,42 @@
 import React, {Component} from 'react';
 import Comment from './comment';
-import Article from './article-list'
-//import accordion from '../decorators/accordion';
+import togglerElement from '../decorators/comments';
 
 class CommentList extends Component{
+
         render() {
-        return <ul>{this.comments}</ul>;
-    }
+            const {isOpenComments, toggleOpenComments} = this.props
+        return (
+          <div>
+              <button onClick={toggleOpenComments}>
+                {isOpenComments ? 'closeComments' : 'openComments'}
+              </button>
+              {this.comments}
+          </div>);
+
+        }
 
     get comments() {
-        const {
-            comments, isOpenComments
-        } = this.props
+            const {
+                comments, isOpenComments
+            } = this.props;
 
-        if (!isOpenComments){
-            return null
+              return (
+                 <div>
+                      <ul>
+                      {comments && isOpenComments ?
+                        comments.map((comment) =>
+                          <li key={comment.id}>
+                              <Comment comment={comment}/>
+                          </li>)
+                        : null}
+
+                      </ul>
+                  </div>
+
+            );
         }
-        return comments && comments.map(comment => (
-          <li key={comment.id}>
-              <Comment comment={comment}/>
-          </li>
-        ))
-    }
 
 }
 
-export default CommentList;
+export default togglerElement(CommentList);
