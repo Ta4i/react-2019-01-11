@@ -1,17 +1,21 @@
 .article-enter {
     opacity: 0.01;
+    max-height: 0;
 }
 
 .article-enter.article-enter-active {
     opacity: 1;
-    transition: opacity 500ms ease-in;
+    max-height: 50rem;
+    transition: all 500ms ease-in;
 }
 
 .article-leave {
     opacity: 1;
+    max-height: 50rem;
 }
 
 .article-leave.article-leave-active {
     opacity: 0.01;
-    transition: opacity 3000ms ease-in;
+    max-height: 0;
+    transition: all 500ms ease-in;
 }
