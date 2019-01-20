@@ -43,5 +43,17 @@ describe('Article List', function () {
             />
         )
     });
+  it('should call close article after click button', (done) => {
+    const wrapper = mount(
+      <ArticleList
+        articles = {mockedArticles}
+        fetchData={() => done()}
+      />
+    )
+
+    wrapper.find('.test--article__btn').at(0).simulate('click');
+    expect(wrapper.find('.test--article_body').length)
+      .toEqual(1)
+  });
 
 });
