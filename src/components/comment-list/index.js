@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import Comment from './comment'
-import toggleOpen from '../decorators/toggleOpen'
-import PropTypes from 'prop-types';
+import Comment from '../comment'
+import toggleOpen from '../../decorators/toggleOpen'
+import PropTypes from 'prop-types'
+import CSSTransition from 'react-addons-css-transition-group'
+import './comment-list.css'
 
 class CommentList extends Component {
     static propTypes = {
@@ -14,12 +16,20 @@ class CommentList extends Component {
 
     render() {
         const { isOpen, toggleOpenItem } = this.props
+
         return (
             <div>
                 <button onClick={toggleOpenItem}>
                     {isOpen ? 'hide comments' : 'show comments'}
                 </button>
-                {isOpen ? this.getBody() : null}
+
+                <CSSTransition
+                    transitionName="comment-list"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={500}
+                >
+                    {isOpen ? this.getBody() : null}
+                </CSSTransition>
             </div>
         )
     }
