@@ -8,11 +8,11 @@ Enzyme.configure({ adapter: new Adapter() });
 
 describe('Comment List', function () {
   it('should show comments text after click on button', () => {
-    const comments = mockedArticles[0]
+    const comments = mockedArticles[0].comments
     const wrapper = mount(
       <CommentList comments={comments}/>,
     )
-    // console.log('[ASD]', mockedArticles[0])
+    console.log('[ASD]', mockedArticles[0])
     wrapper.find('.test--comment__btn').at(0).simulate('click');
     expect(wrapper.find('.test--art-comments__container').length)
       .toEqual(1)
