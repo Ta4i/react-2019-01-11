@@ -1,5 +1,6 @@
 import React from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
+import PropTypes from "prop-types";
 import 'react-day-picker/lib/style.css';
 
 export default class Example extends React.Component {
@@ -54,4 +55,8 @@ export default class Example extends React.Component {
             </div>
         );
     }
+}
+
+Example.propTypes = {
+    numberOfMonths: PropTypes.number,
 }
