@@ -1,6 +1,7 @@
 import React from 'react'
+import './comment.css'
 
-function Comment(props) {
+function Index(props) {
     const { user, text } = props.comment
     return (
         <div>
@@ -10,4 +11,4 @@ function Comment(props) {
     )
 }
 
-export default Comment
+export default Index
