@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Article from './article';
 import accordion from '../decorators/accordion';
+import PropTypes from 'prop-types';
 
 class ArticleList extends Component{
     render() {
@@ -28,6 +29,14 @@ class ArticleList extends Component{
             </li>
         ))
     }
+}
+
+ArticleList.propTypes = {
+    articles: PropTypes.array.isRequired,
+
+    // from decorator
+    openItemId: PropTypes.string,
+    toggleOpenArticle: PropTypes.func.isRequired
 }
 
 export default accordion(ArticleList)
