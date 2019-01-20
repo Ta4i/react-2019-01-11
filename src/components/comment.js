@@ -1,18 +1,13 @@
-import React, {PureComponent} from 'react'
+import React from 'react'
 
-class Comment extends PureComponent {
-    render() {
-        const {comment: {user, text}} = this.props
-
-        return (
-            <div>
-                <h5>
-                    {user}
-                </h5>
-                {text}
-            </div>
-        )
-    }
+function Comment(props) {
+    const { user, text } = props.comment
+    return (
+        <div>
+            <h4>{user}</h4>
+            <p>{text}</p>
+        </div>
+    )
 }
 
 export default Comment
