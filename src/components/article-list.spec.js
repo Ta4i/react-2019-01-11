@@ -36,6 +36,7 @@ describe('Article List', function () {
             .toEqual(1)
     });
 
+
     it('should call fetch data on init', (done) => {
         const wrapper = mount(
             <ArticleList
