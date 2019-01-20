@@ -33,13 +33,13 @@ class ArticleList extends Component{
 
 ArticleList.defaultProps = {
   articles: [],
-  openItemId: false,
+  openItemId: '',
   toggleOpenArticle: (() =>({})),
   fetchData: (() =>({}))
 }
 
 ArticleList.propTypes = {
-  openItemId: PropTypes.bool,
+  openItemId: PropTypes.string,
   toggleOpenArticle: PropTypes.func,
   articles: PropTypes.array,
   fetchData: PropTypes.func,

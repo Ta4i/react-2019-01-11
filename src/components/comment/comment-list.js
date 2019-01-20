@@ -68,7 +68,7 @@ CommentList.defaultProps = {
 CommentList.propTypes = {
   isOpen: PropTypes.bool,
   toggleArticle: PropTypes.func,
-  comments: PropTypes.arrayOf,
+  comments: PropTypes.array,
 }
 
 export default toggleOpen(CommentList)
