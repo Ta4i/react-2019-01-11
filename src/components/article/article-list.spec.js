@@ -2,16 +2,15 @@ import React from 'react';
 import Enzyme, {render, shallow, mount} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import ArticleList from './article-list';
-import mockedArticles from '../fixtures';
+import mockedArticles from '../../fixtures';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 describe('Article List', function () {
     it('should render', () => {
         const wrapper = mount(
-            <ArticleList articles = {mockedArticles} />
+            <ArticleList articles = {mockedArticles} />,
         )
-
         expect(wrapper.find('.test--art__container').length)
             .toEqual(7)
     });
