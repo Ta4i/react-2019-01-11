@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Select from './select'
 import DateRange from './date-range-picker'
+import PropsTypes from 'prop-types'
 
 class Filters extends Component {
     render() {
@@ -11,6 +12,10 @@ class Filters extends Component {
             </div>
         )
     }
+}
+
+Filters.propTypes = {
+   articles: PropsTypes.array
 }
 
 export default Filters

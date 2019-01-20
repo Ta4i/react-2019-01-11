@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import Index from '../comment/index'
 import toggleOpen from '../../decorators/toggleOpen'
-import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-addons-css-transition-group'
 import './comment-list.css'
+import PropTypes from "prop-types"
 
 class CommentList extends Component {
     static propTypes = {
