@@ -1,8 +1,18 @@
 import React, {Component} from 'react';
 import Article from './article';
 import accordion from '../decorators/accordion';
+import PropTypes from 'prop-types';
 
 class ArticleList extends Component{
+    static propTypes = {
+        articles: PropTypes.array.isRequired,
+
+        // from decorator
+        openItemId: PropTypes.string,
+        toggleOpenArticle: PropTypes.func.isRequired,
+        //нужно ли здесь указывать fetchData, который появляется в componentDidMount?
+    }
+
     render() {
         return <ul>{this.articles}</ul>;
     }
