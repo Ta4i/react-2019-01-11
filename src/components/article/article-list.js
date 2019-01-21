@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 
 class ArticleList extends Component{
     render() {
+      // console.log('[ASD]', this.props)
         return <ul>{this.articles}</ul>;
     }
 

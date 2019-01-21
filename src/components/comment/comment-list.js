@@ -6,7 +6,6 @@ import Comment from './comment'
 import toggleOpen from '../../decorators/toggleOpen'
 
 import CSSTransition from 'react-addons-css-transition-group'
-import Article from '../article'
 
 
 class CommentList extends Component {
