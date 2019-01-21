@@ -11,7 +11,7 @@ class CommentList extends Component {
 
         return (
             <div>
-                <button onClick={toggleOpenItem}>
+                <button onClick={toggleOpenItem} className="test--cl__btn">
                     {isOpen ? 'hide comments' : 'show comments'}
                 </button>
 
@@ -37,7 +37,7 @@ class CommentList extends Component {
                 ))}
             </ul>
         ) : (
-            <h3>No comments yet</h3>
+            <h3 className="test--cl__empty-item">No comments yet</h3>
         )
         return <div>{body}</div>
     }
