@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Select from './select'
 import DateRange from './date-range-picker'
 import PropTypes from 'prop-types'
-import App from '../../app'
 
 class Filters extends Component {
 

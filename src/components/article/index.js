@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import CommentList from '../comment-list';
 import PropTypes from 'prop-types';
-import CSSTransition from 'install --save react-transition-group@1.x'
+import CSSTransition from 'react-addons-css-transition-group'
 import './article.css';
 
 class Article extends PureComponent {
@@ -23,8 +23,8 @@ class Article extends PureComponent {
                 </h3>
                 <CSSTransition
                     transitionName="article"
-                    transitionEnterTimeout={500}
-                    transitionLeaveTimeout={3000}
+                    transitionEnterTimeout={750}
+                    transitionLeaveTimeout={500}
                 >
                     {this.body}
                 </CSSTransition>

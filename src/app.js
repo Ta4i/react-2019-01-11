@@ -5,9 +5,7 @@ import Filters from './components/filters';
 import PropTypes from 'prop-types';
 
 class App extends Component {
-    static defaultProps = {
-      articles: []
-   }
+
     render() {
         const {articles} = this.props;
         return (
@@ -21,7 +19,7 @@ class App extends Component {
 }
 
 App.propTypes = {
-  articles : PropTypes.array
+    articles: PropTypes.array.isRequired
 }
 
 export default App;
