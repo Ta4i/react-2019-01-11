@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react'
-import CommentList from '../comment-list';
+import CommentList from '../comment-list/comment-list';
 import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './article.css';
@@ -10,6 +10,7 @@ class Article extends PureComponent {
     }
     componentDidCatch(error) {
         this.setState({error})
+        console.log('error');
     }
     render() {
         const {article: {title}, isOpen} = this.props
@@ -24,7 +25,7 @@ class Article extends PureComponent {
                 <CSSTransition
                     transitionName="article"
                     transitionEnterTimeout={500}
-                    transitionLeaveTimeout={3000}
+                    transitionLeaveTimeout={300}
                 >
                     {this.body}
                 </CSSTransition>

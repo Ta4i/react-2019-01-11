@@ -45,4 +45,24 @@ describe('Article List', function () {
         )
     });
 
+    // close article test
+
+    it('should hide article after click', (done) => { 
+        const wrapper = mount(
+            <ArticleList articles = {mockedArticles}/>
+        )
+            
+        wrapper.find('.test--article__btn').at(0).simulate('click');
+
+            
+            wrapper.find('.test--article__btn').at(0).simulate('click');
+
+           setTimeout(() => {
+            wrapper.update();
+                expect(wrapper.find('.test--article_body').length)
+                .toEqual(0)
+                done();
+            },800)
+    });
+
 });
