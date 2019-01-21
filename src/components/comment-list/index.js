@@ -7,11 +7,20 @@ import './comment-list.css'
 
 class CommentList extends Component {
   static propTypes = {
-    comments: PropTypes.array.isRequired,
+    comments: PropTypes.arrayOf(
+      PropTypes.shape({
+        user: PropTypes.string,
+        text: PropTypes.string
+      }).isRequired
+    ),
 
     // from decorator
     isOpen: PropTypes.bool,
     toggleOpenItem: PropTypes.func.isRequired
+  }
+
+  static defaultProps = {
+    comments: []
   }
 
   render() {
