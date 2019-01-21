@@ -18,8 +18,8 @@ class CommentList extends Component {
     render() {
         const { isOpen, toggleOpenItem } = this.props
         return (
-            <div>
-                <button onClick={toggleOpenItem}>
+            <div className="test--comment-list__container">
+                <button onClick={toggleOpenItem} className="test--comment-list__btn">
                     {isOpen ? 'hide comments' : 'show comments'}
                 </button>
                 <CSSTransition
@@ -38,7 +38,7 @@ class CommentList extends Component {
         const body = comments.length ? (
             <ul>
                 {comments.map((comment) => (
-                    <li key={comment.id}>
+                    <li key={comment.id} className="test--comment__container">
                         <Comment comment={comment} />
                     </li>
                 ))}
