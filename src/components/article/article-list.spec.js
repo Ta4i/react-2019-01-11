@@ -57,6 +57,6 @@ describe('Article List', function () {
     wrapper.find('.test__article--btn').at(0).simulate('click')
     expect(wrapper.find('.test__article--body').length).toEqual(0)
 
-  });
+  });  ///не могу понять почем не работает
 
 });
