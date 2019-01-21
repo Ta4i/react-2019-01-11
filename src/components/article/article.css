@@ -13,5 +13,7 @@
 
 .article-leave.article-leave-active {
     opacity: 0.01;
-    transition: opacity 3000ms ease-in;
+    transition: opacity 300ms ease-in;
 }
+
+/*Обязательно ли именно в нашем проекте создавать подобный файл comment-list.css, если уже в пропсах CSSTransition переданы параметры анимации?*/
