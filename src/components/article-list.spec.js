@@ -36,6 +36,31 @@ describe('Article List', function () {
             .toEqual(1)
     });
 
+    it('should close article after click on button "close"', (done) => {
+        const wrapper = mount(<ArticleList articles={mockedArticles} />),
+            btn = wrapper.find('.test--article__btn').at(0)
+
+        btn.simulate('click')
+        expect(btn.text()).toBe('close')
+
+        btn.simulate('click')
+        expect(btn.text()).toBe('open')
+
+        setTimeout(() => {
+            wrapper
+                .find('.test--article_body')
+                .at(0)
+                .simulate('transitionEnd')
+
+            expect(wrapper
+                    .find('.test--article_body')
+                    .at(0)
+                    .exists()).toEqual(false)
+
+            done()
+        }, 3600)
+    })
+
     it('should call fetch data on init', (done) => {
         const wrapper = mount(
             <ArticleList
