@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import Article from './article';
-import accordion from '../decorators/accordion';
+import Article from '../article';
+import accordion from '../../decorators/accordion';
+import PropTypes from 'prop-types'
 
 class ArticleList extends Component{
     render() {
+      // console.log('[ASD]', this.props)
         return <ul>{this.articles}</ul>;
     }
 
@@ -28,6 +30,20 @@ class ArticleList extends Component{
             </li>
         ))
     }
+}
+
+ArticleList.defaultProps = {
+  articles: [],
+  openItemId: '',
+  toggleOpenArticle: (() =>({})),
+  fetchData: (() =>({}))
+}
+
+ArticleList.propTypes = {
+  openItemId: PropTypes.string,
+  toggleOpenArticle: PropTypes.func,
+  articles: PropTypes.array,
+  fetchData: PropTypes.func,
 }
 
 export default accordion(ArticleList)
