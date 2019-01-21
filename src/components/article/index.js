@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import CommentList from '../comment-list';
 import PropTypes from 'prop-types';
-import CSSTransition from 'react-addons-css-transition-group'
+import CSSTransition from 'install --save react-transition-group@1.x'
 import './article.css';
 
 class Article extends PureComponent {
