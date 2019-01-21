@@ -45,4 +45,40 @@ describe('Article List', function () {
         )
     });
 
+    it('in start all article should be closed', () => {
+        const wrapper = mount(
+          <ArticleList
+            articles = {mockedArticles}
+          />
+        )
+
+        expect(wrapper.find('.article').length).toEqual(0);
+    });
+
+    it('when btn open article click, article should be render', () => {
+        const wrapper = mount(
+          <ArticleList
+            articles = {mockedArticles}
+          />
+        );
+
+        wrapper.find('.test--article__btn').at(0).simulate('click');
+        expect(wrapper.find('.article').length).toEqual(1);
+    });
+
+    it('when second article open, first article should be close', () => {
+        const wrapper = mount(
+          <ArticleList
+            articles = {mockedArticles}
+          />
+        );
+
+        wrapper.find('.test--article__btn').at(0).simulate('click');
+        const oldArticle = wrapper.find('.article p').text();
+
+        wrapper.find('.test--article__btn').at(1).simulate('click');
+        expect(wrapper.find('.article p').at(1).text())
+          .not.toEqual(oldArticle);;
+    });
+
 });

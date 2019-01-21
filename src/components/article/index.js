@@ -29,7 +29,6 @@ class Article extends PureComponent {
                   timeout={500}
                   unmountOnExit
                   mountOnEnter
-                  onExit={() => console.log('onEnter')}
                   classNames="article">
                     {this.body}
                 </CSSTransition>

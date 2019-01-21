@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { TweenLite } from 'gsap/all'
+import React, { Component } from 'react';
+import { TweenLite } from 'gsap';
 
-import { CSSTransition } from 'react-transition-group'
+import { CSSTransition } from 'react-transition-group';
 
-import './comment.css'
+import './comment.css';
 
 class Comment extends Component {
   render() {
