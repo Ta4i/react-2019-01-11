@@ -1,9 +1,13 @@
 import React, {PureComponent} from 'react'
 
 class Article extends PureComponent {
+    state= {
+        isOpen: false
+    };
     render() {
-        const {article: {title}, isOpen} = this.props
-        console.log('render Article');
+        const {isOpen} = this.state;
+        const {article: {title}} = this.props;
+        console.log('render Article', this.props);
         return (
             <div>
                 <h3>
@@ -18,14 +22,15 @@ class Article extends PureComponent {
     }
 
     toggleOpen = () => {
-        this.props.toggleArticle(this.props.article.id)
-    }
+        this.setState({isOpen: !this.state.isOpen})
+    };
+
 
     get body() {
-        if (!this.props.isOpen) return null
+        if (!this.state.isOpen) return null;
         return (
             <p>{this.props.article.text}</p>
-        )
+        );
     }
 }
 
