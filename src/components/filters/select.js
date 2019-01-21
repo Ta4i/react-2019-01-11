@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
+import PropTypes from 'prop-types'
+import Filters from './index'
 
 class SelectFilter extends Component {
     state = {
@@ -27,6 +29,10 @@ class SelectFilter extends Component {
     handleSelectChange = (selectedOption) => {
         this.setState({ selectedOption })
     }
+}
+
+SelectFilter.propTypes = {
+    articles: PropTypes.array
 }
 
 export default SelectFilter
