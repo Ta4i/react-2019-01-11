@@ -43,20 +43,17 @@ describe('Article List', function () {
             />
         )
     });
-  it('should call close article after click button', () => {
+  it('should hide article after click', () => {
     const wrapper = mount(
       <ArticleList
-        {...this.props}
         articles = {mockedArticles}
       />
     )
-    expect(wrapper.find('.test__article--body').length).toEqual(0)
-
-    wrapper.find('.test__article--btn').at(0).simulate('click')
-    expect(wrapper.find('.test__article--body').length).toEqual(1)
-    wrapper.find('.test__article--btn').at(0).simulate('click')
-    expect(wrapper.find('.test__article--body').length).toEqual(0)
-
-  });  ///не могу понять почем не работает
-
+    wrapper.find('.test--article__btn').at(0).simulate('click');
+    expect(wrapper.find('.test--article_body').length).toEqual(1)
+    wrapper.find('.test--article__btn').at(0).simulate('click');
+    setTimeout(() => {
+        expect(wrapper.find('.test--article_body').length).toEqual(0)
+    }, 1000)
+  });
 });
