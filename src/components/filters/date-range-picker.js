@@ -6,7 +6,8 @@ export default class Example extends React.Component {
     static defaultProps = {
         numberOfMonths: 2,
     };
-    constructor(props) {
+
+      constructor(props) {
         super(props);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.handleResetClick = this.handleResetClick.bind(this);
