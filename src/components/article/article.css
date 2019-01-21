@@ -2,16 +2,20 @@
     opacity: 0.01;
 }
 
-.article-enter.article-enter-active {
+.article-enter-active {
     opacity: 1;
     transition: opacity 500ms ease-in;
 }
 
-.article-leave {
+.article-exit {
     opacity: 1;
 }
 
-.article-leave.article-leave-active {
+.article-exit-active {
     opacity: 0.01;
-    transition: opacity 3000ms ease-in;
+    transition: opacity 500ms ease-in;
+}
+
+.article-exit-done {
+    opacity: 0;
 }

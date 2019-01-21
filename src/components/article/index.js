@@ -1,7 +1,9 @@
 import React, {PureComponent} from 'react'
-import CommentList from '../comment-list';
 import PropTypes from 'prop-types';
-import CSSTransition from 'react-addons-css-transition-group'
+import { CSSTransition } from 'react-transition-group'
+
+import CommentList from '../comment-list/comment-list';
+
 import './article.css';
 
 class Article extends PureComponent {
@@ -22,10 +24,13 @@ class Article extends PureComponent {
                     </button>
                 </h3>
                 <CSSTransition
-                    transitionName="article"
-                    transitionEnterTimeout={500}
-                    transitionLeaveTimeout={3000}
-                >
+                  in={isOpen}
+                  exit={true}
+                  timeout={500}
+                  unmountOnExit
+                  mountOnEnter
+                  onExit={() => console.log('onEnter')}
+                  classNames="article">
                     {this.body}
                 </CSSTransition>
             </div>
@@ -37,17 +42,17 @@ class Article extends PureComponent {
     }
 
     get body() {
-        const {article, isOpen} = this.props
-        if (!isOpen) return null
+        const { article } = this.props;
+
         return (
-            <section className="test--article_body">
-                <p>{article.text}</p>
-                {
-                    this.state.error ?
-                        null :
-                        <CommentList comments={article.comments} />
-                }
-            </section>
+          <section className="test--article_body article">
+              <p> {article.text}</p>
+              {
+                  this.state.error ?
+                    null :
+                    <CommentList comments={article.comments} />
+              }
+          </section>
         )
     }
 }
