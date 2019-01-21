@@ -8,7 +8,11 @@ import toggleOpen from '../../decorators/toggleOpen'
 
 class CommentList extends Component {
     static propTypes = {
-        comments: PropTypes.array.isRequired,
+        comments: PropTypes.array.shape({
+            id: PropTypes.string.isRequired,
+            user: PropTypes.string.isRequired,
+            text: PropTypes.string.isRequired
+        }).isRequired,
 
         // from decorator
         isOpen: PropTypes.bool,

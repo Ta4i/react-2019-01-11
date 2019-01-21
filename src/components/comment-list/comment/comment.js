@@ -4,8 +4,21 @@ import { TweenLite } from 'gsap';
 import { CSSTransition } from 'react-transition-group';
 
 import './comment.css';
+import PropTypes from 'prop-types'
 
 class Comment extends Component {
+  static propTypes = {
+    comment: PropTypes.object.shape({
+      id: PropTypes.string.isRequired,
+      user: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired
+    }).isRequired,
+
+    // from decorator
+    isOpen: PropTypes.bool.isRequired,
+    index: PropTypes.number.isRequired
+  }
+
   render() {
     const { comment: { user, text }, isOpen, index } = this.props
     return (
