@@ -8,9 +8,11 @@ class Article extends PureComponent {
     state = {
         error: null
     }
+
     componentDidCatch(error) {
         this.setState({error})
     }
+
     render() {
         const {article: {title}, isOpen} = this.props
         return (
@@ -23,8 +25,8 @@ class Article extends PureComponent {
                 </h3>
                 <CSSTransition
                     transitionName="article"
-                    transitionEnterTimeout={750}
-                    transitionLeaveTimeout={500}
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={300}
                 >
                     {this.body}
                 </CSSTransition>
@@ -45,7 +47,7 @@ class Article extends PureComponent {
                 {
                     this.state.error ?
                         null :
-                        <CommentList comments={article.comments} />
+                        <CommentList comments={article.comments}/>
                 }
             </section>
         )
@@ -61,6 +63,6 @@ Article.propTypes = {
         text: PropTypes.string,
         comments: PropTypes.array
     })
-}
+};
 
 export default Article
