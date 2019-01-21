@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Comment from '../comment'
+import Comment, { commentPropTypes } from '../comment'
 import toggleOpen from '../../decorators/toggleOpen'
 import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group';
@@ -7,18 +7,24 @@ import './comment-list.css';
 
 class CommentList extends Component {
     static propTypes = {
-        comments: PropTypes.array.isRequired,
-
+        comments: PropTypes.arrayOf(commentPropTypes).isRequired,
         // from decorator
         isOpen: PropTypes.bool,
         toggleOpenItem: PropTypes.func.isRequired
     }
 
+    static defaultProps = {
+      comments: [],
+    }
+
     render() {
         const { isOpen, toggleOpenItem } = this.props
         return (
-            <div>
-                <button onClick={toggleOpenItem}>
+            <div className="test--comment-list__container">
+                <button
+                  onClick={toggleOpenItem}
+                  className="test--comment-list__toggle-btn"
+                >
                     {isOpen ? 'hide comments' : 'show comments'}
                 </button>
                 <CSSTransition
@@ -35,7 +41,7 @@ class CommentList extends Component {
     getBody() {
         const { comments } = this.props
         const body = comments.length ? (
-            <ul>
+            <ul className="test--comment-list__list">
                 {comments.map((comment) => (
                     <li key={comment.id}>
                         <Comment comment={comment} />
@@ -43,9 +49,9 @@ class CommentList extends Component {
                 ))}
             </ul>
         ) : (
-            <h3>No comments yet</h3>
+            <h3 className="test--comment-list__stub">No comments yet</h3>
         )
-        return <div>{body}</div>
+        return <div className="test--comment-list__body">{body}</div>
     }
 }
 

@@ -23,8 +23,8 @@ class Article extends PureComponent {
                 </h3>
                 <CSSTransition
                     transitionName="article"
-                    transitionEnterTimeout={500}
-                    transitionLeaveTimeout={3000}
+                    transitionEnterTimeout={200}
+                    transitionLeaveTimeout={400}
                 >
                     {this.body}
                 </CSSTransition>
@@ -52,15 +52,18 @@ class Article extends PureComponent {
     }
 }
 
+const articlePropTypes = PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    text: PropTypes.string,
+    comments: PropTypes.array
+});
+
 Article.propTypes = {
     isOpen: PropTypes.bool,
     toggleArticle: PropTypes.func,
-    article: PropTypes.shape({
-        id: PropTypes.string,
-        title: PropTypes.string,
-        text: PropTypes.string,
-        comments: PropTypes.array
-    })
+    article: articlePropTypes,
 }
 
+export { articlePropTypes }
 export default Article

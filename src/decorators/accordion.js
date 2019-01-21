@@ -6,7 +6,7 @@ export default (OriginalComponent) =>
         state = {
             openItemId: null
         }
-        toggleOpenArticle = (id) => this.setState({
+        toggleItem = (id) => this.setState({
             openItemId: id === this.state.openItemId ? null : id
         })
 
@@ -14,7 +14,7 @@ export default (OriginalComponent) =>
             return <div><OriginalComponent
                 {...this.props}
                 {...this.state}
-                toggleOpenArticle={this.toggleOpenArticle}
+                toggleItem={this.toggleItem}
             /></div>;
         }
 
