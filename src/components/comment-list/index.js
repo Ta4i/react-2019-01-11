@@ -18,7 +18,7 @@ class CommentList extends Component {
         const { isOpen, toggleOpenItem } = this.props
         return (
             <div>
-                <button onClick={toggleOpenItem}>
+                <button onClick={toggleOpenItem} className='test--comments__btn'>
                     {isOpen ? 'hide comments' : 'show comments'}
                 </button>
                 <CSSTransition
@@ -43,7 +43,7 @@ class CommentList extends Component {
                 ))}
             </ul>
         ) : (
-            <h3>No comments yet</h3>
+            <h3 className='test--comment__empty-list'>No comments yet</h3>
         )
         return <div>{body}</div>
     }
