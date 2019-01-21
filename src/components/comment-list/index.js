@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group';
 import './comment-list.css';
 
+const ENTER_TIMEOUT = 300;
+const LEAVE_TIMEOUT = 500;
+
 class CommentList extends Component {
     static propTypes = {
         comments: PropTypes.arrayOf(commentPropTypes).isRequired,
@@ -29,8 +32,8 @@ class CommentList extends Component {
                 </button>
                 <CSSTransition
                     transitionName="comment-list"
-                    transitionEnterTimeout={300}
-                    transitionLeaveTimeout={500}
+                    transitionEnterTimeout={ENTER_TIMEOUT}
+                    transitionLeaveTimeout={LEAVE_TIMEOUT}
                 >
                   {isOpen ? this.getBody() : null}
                 </CSSTransition>
@@ -55,4 +58,5 @@ class CommentList extends Component {
     }
 }
 
+export { ENTER_TIMEOUT, LEAVE_TIMEOUT }
 export default toggleOpen(CommentList)
