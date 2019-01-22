@@ -1,0 +1,16 @@
+.comment-list .item {
+    list-style: none;
+}
+
+.comment-list {
+    padding: 0;
+}
+
+.body-enter {
+    opacity: 0.01;
+}
+
+.body-enter.body-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
