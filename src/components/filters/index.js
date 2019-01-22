@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from "prop-types"
 import Select from './select'
 import DateRange from './date-range-picker'
 
@@ -11,6 +12,10 @@ class Filters extends Component {
             </div>
         )
     }
+}
+
+Filters.propTypes = {
+    articles: PropTypes.array.isRequired
 }
 
 export default Filters
