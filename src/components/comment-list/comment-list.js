@@ -12,7 +12,7 @@ class CommentList extends Component {
             id: PropTypes.string.isRequired,
             user: PropTypes.string.isRequired,
             text: PropTypes.string.isRequired
-        })).isRequired,
+        })),
 
         // from decorator
         isOpen: PropTypes.bool,
@@ -35,7 +35,7 @@ class CommentList extends Component {
         const { comments, isOpen } = this.props;
 
         if (!comments || !comments.length) {
-            return <h3>No comments yet</h3>;
+            return isOpen && <h3>No comments yet</h3>;
         }
 
         return (
