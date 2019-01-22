@@ -33,18 +33,18 @@ class ArticleList extends Component {
 
 ArticleList.propTypes = {
   fetchData: PropTypes.func,
-  openItemId: PropTypes.number.isRequired,
+  openItemId: PropTypes.string,
   toggleOpenArticle: PropTypes.func.isRequired,
-  articles: PropTypes.array.shape({
+  articles: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    comments: PropTypes.array.shape({
+    comments: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string.isRequired,
       user: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired
-    })
-  })
+    }))
+  })).isRequired
 }
 
 export default accordion(ArticleList)

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 
 class Comment extends Component {
   static propTypes = {
-    comment: PropTypes.object.shape({
+    comment: PropTypes.shape({
       id: PropTypes.string.isRequired,
       user: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired

@@ -66,9 +66,10 @@ describe('Article List', function () {
         expect(wrapper.find('.article').length).toEqual(1);
     });
 
-    it('when second article open, first article should be close', () => {
+    it('when second article open, first article should be close', (done) => {
         const wrapper = mount(
           <ArticleList
+            openItemId={null}
             articles = {mockedArticles}
           />
         );
@@ -76,9 +77,13 @@ describe('Article List', function () {
         wrapper.find('.test--article__btn').at(0).simulate('click');
         const oldArticle = wrapper.find('.article p').text();
 
-        wrapper.find('.test--article__btn').at(1).simulate('click');
-        expect(wrapper.find('.article p').at(1).text())
-          .not.toEqual(oldArticle);;
+        wrapper.find('.test--article__btn').at(1).simulate('click')
+        setTimeout(() => {
+            wrapper.update();
+            expect(wrapper.find('.article p').at(0).text())
+              .not.toEqual(oldArticle);
+            done();
+        }, 600);
     });
 
 });
