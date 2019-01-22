@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react'
-import CommentList from '../comment-list'
 import PropTypes from 'prop-types'
+import React, { PureComponent } from 'react'
 import CSSTransition from 'react-addons-css-transition-group'
+import CommentList from '../comment-list'
 import './article.css'
 
 class Article extends PureComponent {
@@ -27,7 +27,7 @@ class Article extends PureComponent {
         <CSSTransition
           transitionName="article"
           transitionEnterTimeout={500}
-          transitionLeaveTimeout={3000}
+          transitionLeaveTimeout={500}
         >
           {this.body}
         </CSSTransition>
