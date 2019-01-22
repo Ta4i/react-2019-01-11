@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from "prop-types"
 import Select from 'react-select'
 
 class SelectFilter extends Component {
@@ -27,6 +28,10 @@ class SelectFilter extends Component {
     handleSelectChange = (selectedOption) => {
         this.setState({ selectedOption })
     }
+}
+
+SelectFilter.PropTypes = {
+    articles: PropTypes.array.isRequired
 }
 
 export default SelectFilter
