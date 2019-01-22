@@ -30,21 +30,21 @@ describe('Article List', function() {
     expect(wrapper.find('.test--article_body').length).toEqual(1)
   })
 
-  it('should close', () => {
+  it('should close', (done) => {
     const wrapper = mount(<ArticleList articles={mockedArticles} />)
-
-    wrapper
-      .find('.test--article__btn')
-      .at(0)
-      .simulate('click')
-    wrapper
-      .find('.test--article__btn')
-      .at(0)
-      .simulate('click')
+    const button = wrapper.find('.test--article__btn').at(0)
+    button.simulate('click')
 
     setTimeout(() => {
-      expect(wrapper.find('.test--article_body').length).toEqual(0)
-    }, 3100)
+      wrapper.simulate('transitionEnd')
+      button.simulate('click')
+
+      setTimeout(() => {
+        wrapper.simulate('transitionEnd')
+        expect(wrapper.find('.test--article_body').length).toEqual(0)
+        done()
+      }, 500)
+    }, 500)
   })
 
   it('should call fetch data on init', (done) => {

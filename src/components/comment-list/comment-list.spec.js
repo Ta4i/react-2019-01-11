@@ -22,22 +22,24 @@ describe('Comment list tests', () => {
     expect(wrapper.find('.test--comment__body').length).toBe(commentCount)
   })
 
-  test('should close', () => {
+  test('should close', (done) => {
     const articleIndex = 0
     const article = mockedArticles[articleIndex]
     const wrapper = mount(<CommentList comments={article.comments} />)
-    // Show comments first
-    wrapper
-      .find('.test--comments__btn')
-      .at(0)
-      .simulate('click')
-    // Then hide them
-    wrapper
-      .find('.test--comments__btn')
-      .at(0)
-      .simulate('click')
+    const button = wrapper.find('.test--comments__btn').at(0)
+
+    button.simulate('click')
+
     setTimeout(() => {
-      expect(wrapper.find('.test--comment__container').length).toBe(0)
-    }, 1000)
+      wrapper.simulate('transitionEnd')
+      button.simulate('click')
+
+      setTimeout(() => {
+        wrapper.simulate('transitionEnd')
+        expect(wrapper.find('.test--comment__container').length).toBe(0)
+        expect(wrapper.find('.test--comment__body').length).toEqual(0)
+        done()
+      }, 500)
+    }, 500)
   })
 })
