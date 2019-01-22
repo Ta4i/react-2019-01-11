@@ -30,7 +30,7 @@ class SelectFilter extends Component {
     }
 }
 
-SelectFilter.PropTypes = {
+SelectFilter.propTypes = {
     articles: PropTypes.array.isRequired
 }
 

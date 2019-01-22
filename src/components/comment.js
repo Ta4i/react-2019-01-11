@@ -11,7 +11,7 @@ function Comment(props) {
     )
 }
 
-Comment.PropTypes = {
+Comment.propTypes = {
     comment: PropTypes.shape({
         id: PropTypes.string,
         user: PropTypes.string,

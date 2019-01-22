@@ -14,7 +14,7 @@ class Filters extends Component {
     }
 }
 
-Filters.PropTypes = {
+Filters.propTypes = {
     articles: PropTypes.array.isRequired
 }
 

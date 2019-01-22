@@ -57,6 +57,6 @@ export default class Example extends React.Component {
     }
 }
 
-Example.PropTypes = {
+Example.propTypes = {
     numberOfMonths: PropTypes.number
 }

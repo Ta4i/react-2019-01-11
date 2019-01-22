@@ -31,7 +31,7 @@ class ArticleList extends Component{
     }
 }
 
-ArticleList.ProtoTypes ={
+ArticleList.propTypes ={
     openItemId: PropTypes.string,
     fetchData: PropTypes.func,
     toggleOpenArticle: PropTypes.func.isRequired,
