@@ -35,13 +35,10 @@ class ArticleList extends Component {
   }
 
   isInSelectedOptions = (article) => {
-    const { selectedOptionsFromStore } = this.props
-    if (!selectedOptionsFromStore || !selectedOptionsFromStore.length) {
+    const { selectedArticleIds } = this.props
+    if (!selectedArticleIds.length) {
       return true
     }
-    const selectedArticleIds = selectedOptionsFromStore.map(
-      (option) => option.value
-    )
     return selectedArticleIds.includes(article.id)
   }
 
@@ -64,8 +61,15 @@ class ArticleList extends Component {
   }
 }
 
+function optionsToIds(selectedOptions) {
+  if (!selectedOptions) {
+    return []
+  }
+  return selectedOptions.map((option) => option.value)
+}
+
 export default connect((store) => ({
   articlesFromStore: store.articles,
   dateRangeFromStore: store.dateRange,
-  selectedOptionsFromStore: store.selectedOption
+  selectedArticleIds: optionsToIds(store.selectedOption)
 }))(accordion(ArticleList))
