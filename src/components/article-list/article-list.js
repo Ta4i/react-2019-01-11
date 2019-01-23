@@ -19,12 +19,28 @@ class ArticleList extends Component {
   }
 
   get articles() {
-    const { openItemId, toggleOpenArticle, articlesFromStore } = this.props
-    const { from, to } = this.props.dateRangeFromStore
+    const {
+      openItemId,
+      toggleOpenArticle,
+      articlesFromStore,
+      dateRangeFromStore,
+      selectedOptionsFromStore
+    } = this.props
+    const { from, to } = dateRangeFromStore
+
+    const selectedArticleIds = selectedOptionsFromStore
+      ? selectedOptionsFromStore.map((option) => option.value)
+      : []
+
     const filteredArticles = articlesFromStore.filter((article) => {
       const articleDate = Date.parse(article.date)
-      return articleDate >= from && articleDate <= to
+      return (
+        articleDate >= from &&
+        articleDate <= to &&
+        selectedArticleIds.includes(article.id)
+      )
     })
+
     return filteredArticles.map((article) => (
       <li key={article.id} className="test--art__container">
         <Article
@@ -39,5 +55,6 @@ class ArticleList extends Component {
 
 export default connect((store) => ({
   articlesFromStore: store.articles,
-  dateRangeFromStore: store.dateRange
+  dateRangeFromStore: store.dateRange,
+  selectedOptionsFromStore: store.selectedOption
 }))(accordion(ArticleList))
