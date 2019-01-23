@@ -1,8 +1,15 @@
 import React, {Component} from 'react';
-import Article from './article';
-import accordion from '../decorators/accordion';
+import Article, {TypeArticle} from '../article';
+import accordion from '../../decorators/accordion';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+
+export const TypeArticles = PropTypes.arrayOf(TypeArticle)
 
 class ArticleList extends Component{
+    static propTypes = {
+        articlesFromStore: TypeArticles
+    }
     render() {
         return <ul>{this.articles}</ul>;
     }
@@ -15,10 +22,10 @@ class ArticleList extends Component{
         const {
             openItemId,
             toggleOpenArticle,
-            articles
+            articlesFromStore
         } = this.props
 
-        return articles.map(article => (
+        return articlesFromStore.map(article => (
             <li key={article.id} className="test--art__container">
                 <Article
                     article={article}
@@ -30,4 +37,6 @@ class ArticleList extends Component{
     }
 }
 
-export default accordion(ArticleList)
+export default connect(
+    (store) => ({articlesFromStore: store.articles})
+)(accordion(ArticleList))
