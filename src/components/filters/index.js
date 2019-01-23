@@ -10,9 +10,7 @@ class Filters extends Component {
         return (
             <div>
                 <Select
-                  articles={this.props.articles}
                   articlesFromStore={this.articlesFromStore}
-
                 />
                 <DateRange />
             </div>
