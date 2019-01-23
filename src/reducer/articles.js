@@ -8,9 +8,13 @@ export default (articles = articlesMock, action) => {
          console.log('222222222222',payload)
          return articles.filter(article => article.id !== payload.id)
       case SELECT_ARTICLE:
-         console.log('1111111111',payload)
-         const ids = payload.map(item => item.value)
-         return articlesMock.filter(article => ids.includes(article.id))
+         console.log('1111111111',payload.length)
+         if (payload.length === 0) {
+            return articlesMock
+         } else {
+            const ids = payload.map(item => item.value)
+            return articlesMock.filter(article => ids.includes(article.id))
+         }
          break
       default:
          return articles
