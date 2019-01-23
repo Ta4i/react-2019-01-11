@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
+import {connect} from 'react-redux'
 
 class SelectFilter extends Component {
     state = {
@@ -7,6 +8,7 @@ class SelectFilter extends Component {
     }
 
     render() {
+        console.log(this.props.articlesFromStore)
         return (
             <Select
                 options={this.optionsForSelect}
@@ -18,7 +20,7 @@ class SelectFilter extends Component {
     }
 
     get optionsForSelect() {
-        return this.props.articles.map((item) => ({
+        return this.props.articlesFromStore.map((item) => ({
             value: item.id,
             label: item.title
         }))
@@ -29,4 +31,8 @@ class SelectFilter extends Component {
     }
 }
 
-export default SelectFilter
+const mapStateToProps = (store) => ({
+    articlesFromStore: store.articles
+})
+
+export default connect(mapStateToProps)(SelectFilter)
