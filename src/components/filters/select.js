@@ -20,7 +20,7 @@ class SelectFilter extends Component {
   }
 
   get optionsForSelect() {
-    return this.props.articlesFromStore.map((item) => ({
+    return this.props.articleList.map((item) => ({
       value: item.id,
       label: item.title
     }))
@@ -33,7 +33,7 @@ class SelectFilter extends Component {
 }
 
 const mapStateToProps = (store) => ({
-  articlesFromStore: store.articles
+   articleList: store.articleList
 })
 
 export default connect(
