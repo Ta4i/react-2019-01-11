@@ -28,9 +28,10 @@ class ArticleList extends Component {
     } = this.props
     const { from, to } = dateRangeFromStore
 
-    const selectedArticleIds = selectedOptionsFromStore
-      ? selectedOptionsFromStore.map((option) => option.value)
-      : []
+    const selectedArticleIds =
+      selectedOptionsFromStore && selectedOptionsFromStore.length
+        ? selectedOptionsFromStore.map((option) => option.value)
+        : articlesFromStore.map((article) => article.id)
 
     const filteredArticles = articlesFromStore.filter((article) => {
       const articleDate = Date.parse(article.date)
