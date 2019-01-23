@@ -35,11 +35,13 @@ class ArticleList extends Component {
   }
 
   isInSelectedOptions = (article) => {
-    const { selectedOptionsFromStore, articlesFromStore } = this.props
-    const selectedArticleIds =
-      selectedOptionsFromStore && selectedOptionsFromStore.length
-        ? selectedOptionsFromStore.map((option) => option.value)
-        : articlesFromStore.map((article) => article.id)
+    const { selectedOptionsFromStore } = this.props
+    if (!selectedOptionsFromStore || !selectedOptionsFromStore.length) {
+      return true
+    }
+    const selectedArticleIds = selectedOptionsFromStore.map(
+      (option) => option.value
+    )
     return selectedArticleIds.includes(article.id)
   }
 
