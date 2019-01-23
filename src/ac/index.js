@@ -9,9 +9,9 @@ export const deleteArticle = (id) => ({
   payload: { id }
 })
 
-export const selectArticle = (option) => ({
+export const selectArticles = (options) => ({
   type: SELECT,
-  payload: { option }
+  payload: { options }
 })
 
 export const selectRange = (range) => ({

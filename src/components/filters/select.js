@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Select from 'react-select'
-import { selectArticle } from '../../ac'
+import { selectArticles } from '../../ac'
 
 class SelectFilter extends Component {
   render() {
@@ -22,8 +22,8 @@ class SelectFilter extends Component {
     }))
   }
 
-  handleSelectChange = (selectedOption) => {
-    this.props.dispatchSelectArticle(selectedOption)
+  handleSelectChange = (selectedOptions) => {
+    this.props.dispatchSelectArticles(selectedOptions)
   }
 }
 
@@ -32,6 +32,6 @@ export default connect(
     selectedOptionFromStore: store.selectedOption
   }),
   (dispatch) => ({
-    dispatchSelectArticle: (option) => dispatch(selectArticle(option))
+    dispatchSelectArticles: (options) => dispatch(selectArticles(options))
   })
 )(SelectFilter)

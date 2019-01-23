@@ -1,12 +1,12 @@
 import { SELECT } from '../constants'
 
-export default (selectedOption = null, action) => {
+export default (selectedOptions = null, action) => {
   const { type, payload } = action
 
   switch (type) {
     case SELECT:
-      return payload.option
+      return payload.options
     default:
-      return selectedOption
+      return selectedOptions
   }
 }

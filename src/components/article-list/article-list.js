@@ -71,5 +71,5 @@ function optionsToIds(selectedOptions) {
 export default connect((store) => ({
   articlesFromStore: store.articles,
   dateRangeFromStore: store.dateRange,
-  selectedArticleIds: optionsToIds(store.selectedOption)
+  selectedArticleIds: optionsToIds(store.selectedOptions)
 }))(accordion(ArticleList))
