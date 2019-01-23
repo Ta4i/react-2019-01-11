@@ -18,29 +18,37 @@ class ArticleList extends Component {
     this.props.fetchData && this.props.fetchData()
   }
 
-  get articles() {
+  isInDateRange = (article) => {
     const {
-      openItemId,
-      toggleOpenArticle,
-      articlesFromStore,
-      dateRangeFromStore,
-      selectedOptionsFromStore
+      dateRangeFromStore: { from, to }
     } = this.props
-    const { from, to } = dateRangeFromStore
+    const articleDate = Date.parse(article.date)
 
+    if (!from && !to) {
+      return true
+    } else if (from && !to) {
+      return articleDate >= from
+    } else if (!from && to) {
+      return articleDate <= to
+    }
+    return articleDate >= from && articleDate <= to
+  }
+
+  isInSelectedOptions = (article) => {
+    const { selectedOptionsFromStore, articlesFromStore } = this.props
     const selectedArticleIds =
       selectedOptionsFromStore && selectedOptionsFromStore.length
         ? selectedOptionsFromStore.map((option) => option.value)
         : articlesFromStore.map((article) => article.id)
+    return selectedArticleIds.includes(article.id)
+  }
 
-    const filteredArticles = articlesFromStore.filter((article) => {
-      const articleDate = Date.parse(article.date)
-      return (
-        articleDate >= from &&
-        articleDate <= to &&
-        selectedArticleIds.includes(article.id)
-      )
-    })
+  get articles() {
+    const { openItemId, toggleOpenArticle, articlesFromStore } = this.props
+    const filteredArticles = articlesFromStore.filter(
+      (article) =>
+        this.isInDateRange(article) && this.isInSelectedOptions(article)
+    )
 
     return filteredArticles.map((article) => (
       <li key={article.id} className="test--art__container">
