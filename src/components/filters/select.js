@@ -2,30 +2,26 @@ import React, { Component } from 'react'
 import Select from 'react-select'
 
 class SelectFilter extends Component {
-    state = {
-        selectedOption: null
-    }
-
     render() {
         return (
             <Select
                 options={this.optionsForSelect}
                 onChange={this.handleSelectChange}
-                value={this.state.selectedOption}
+                value={this.props.selectedOptions}
                 isMulti
             />
         )
     }
 
     get optionsForSelect() {
-        return this.props.articles.map((item) => ({
+        return this.props.options.map((item) => ({
             value: item.id,
             label: item.title
         }))
     }
 
-    handleSelectChange = (selectedOption) => {
-        this.setState({ selectedOption })
+    handleSelectChange = (selectedOptions) => {
+        this.props.onChange(selectedOptions);
     }
 }
 

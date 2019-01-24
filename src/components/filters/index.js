@@ -4,10 +4,25 @@ import DateRange from './date-range-picker'
 
 class Filters extends Component {
     render() {
+        const {
+            options,
+            selectedOptions,
+            dateRange,
+            onDateRangeChange,
+            onSelectChange,
+        } = this.props;
+
         return (
             <div>
-                <Select articles={this.props.articles} />
-                <DateRange />
+                <DateRange 
+                    dateRange={dateRange}
+                    onChange={onDateRangeChange}
+                />
+                <Select
+                    options={options}
+                    selectedOptions={selectedOptions}
+                    onChange={onSelectChange}
+                />
             </div>
         )
     }

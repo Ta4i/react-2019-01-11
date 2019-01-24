@@ -19,14 +19,14 @@ export default class Example extends React.Component {
         };
     }
     handleDayClick(day) {
-        const range = DateUtils.addDayToRange(day, this.state);
-        this.setState(range);
+        const range = DateUtils.addDayToRange(day, this.props.dateRange);
+        this.props.onChange(range);
     }
     handleResetClick() {
-        this.setState(this.getInitialState());
+        this.props.onChange(this.getInitialState());
     }
     render() {
-        const { from, to } = this.state;
+        const { from, to } = this.props.dateRange;
         const modifiers = { start: from, end: to };
         return (
             <div className="RangeExample">
