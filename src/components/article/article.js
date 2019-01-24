@@ -1,9 +1,10 @@
 import React, {PureComponent} from 'react'
-import CommentList, {TypeComments} from '../comment-list/comment-list';
 import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
-import './article.css';
 import {connect} from 'react-redux';
+
+import './article.css';
+import CommentList, {TypeComments} from '../comment-list/comment-list';
 import {deleteArticle} from '../../ac';
 
 export const TypeArticle = PropTypes.shape({

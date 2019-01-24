@@ -22,10 +22,25 @@ class ArticleList extends Component{
         const {
             openItemId,
             toggleOpenArticle,
-            articlesFromStore
-        } = this.props
+            articlesFromStore,
+        } = this.props;
 
-        return articlesFromStore.map(article => (
+        let { date: { to, from }, select } = this.props.filterStore;
+        select = select.map(s => s.value);
+
+
+        return articlesFromStore
+          .filter(article => {
+              if (to && from && !(
+                new Date(from) < new Date(article.date) &&
+                new Date(article.date) < new Date(to)
+              )) {
+                return false;
+              }
+
+              return select.length ? select.includes(article.id) : true;
+          })
+          .map(article => (
             <li key={article.id} className="test--art__container">
                 <Article
                     article={article}
@@ -38,5 +53,8 @@ class ArticleList extends Component{
 }
 
 export default connect(
-    (store) => ({articlesFromStore: store.articles})
+    (store) => ({
+        articlesFromStore: store.articles,
+        filterStore: store.filter
+    })
 )(accordion(ArticleList))
