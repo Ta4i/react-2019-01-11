@@ -56,17 +56,17 @@ class App extends Component {
         либо нужен redux-thunk или аналоги, чтобы логику перенести в экшны
     */
     handleDateRangeChange = (dateRange) => {
-        const { articles, filters: { selectedOptions } } = this.props;
-        const { from, to } = dateRange;
+        // const { articles, filters: { selectedOptions } } = this.props;
+        // const { from, to } = dateRange;
 
-        if (from && to) {
-            const filteredArticles = articles
-                .filter(this.filterByDateRange(from, to));
-            const newSelectedOptions = selectedOptions.filter(option =>
-                filteredArticles.some(article => article.id === option.value)
-            );
-            this.props.changeSelectedOptions(newSelectedOptions);
-        }
+        // if (from && to) {
+        //     const filteredArticles = articles
+        //         .filter(this.filterByDateRange(from, to));
+        //     const newSelectedOptions = selectedOptions.filter(option =>
+        //         filteredArticles.some(article => article.id === option.value)
+        //     );
+        //     this.props.changeSelectedOptions(newSelectedOptions);
+        // }
         this.props.changeDateRange(dateRange);
     }
 
