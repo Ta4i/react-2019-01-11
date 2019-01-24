@@ -37,9 +37,33 @@ class ArticleList extends Component{
     }
 }
 
-const mapStateToProps = (store) => {    
+const mapStateToProps = (store) => {
+    
+    const {selectedOption, dateRange: {from,to}} = store.filter
+    const fromInSec = Date.parse(from)
+    const toInSec = Date.parse(to)
+    
+    const filteredArticles = store.articles.filter((article) => {
+        const dateParsed = Date.parse(article.date)
+
+        if (
+            (//если не выбрана ни одна статья, выйти из этой части условия сразу с true
+                (selectedOption === null || selectedOption.length === 0 )
+                ||//либо если массив с выбранными статьями не пустой, найдем там совпадение id и value
+                (selectedOption.some((item) => item.value === article.id))
+            ) &&
+            (//аналогично: первая часть равно true, если не заполнены интервалы дат
+                (!from)
+                ||
+                (!to)
+                ||//если есть и from, и to, проверка на вхождение в интервал
+                (dateParsed > fromInSec && dateParsed < toInSec)
+            )
+        ) return true
+        return false
+    })
     return {
-        articlesFromStore: store.articles
+        articlesFromStore: filteredArticles
     }
 }
 
