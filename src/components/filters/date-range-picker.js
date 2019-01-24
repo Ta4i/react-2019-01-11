@@ -24,7 +24,6 @@ class DateRange extends React.Component {
         filterByDate(this.getInitialState());
     } */
     render() {
-        console.log(this.props)
         const { from, to } = this.props.dateRange;
         const modifiers = { start: from, end: to };
         return (
@@ -55,9 +54,13 @@ class DateRange extends React.Component {
     }
 }
 
-export default connect(
-    (store) => ({
+const mapStateToProps = (store) => {
+    return {
         dateRange: store.filter.dateRange,
-    }),
+    }
+}
+
+export default connect(
+    mapStateToProps,
     {filterByDate}
 )(DateRange)

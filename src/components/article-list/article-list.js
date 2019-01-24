@@ -37,6 +37,10 @@ class ArticleList extends Component{
     }
 }
 
-export default connect(
-    (store) => ({articlesFromStore: store.articles})
-)(accordion(ArticleList))
+const mapStateToProps = (store) => {    
+    return {
+        articlesFromStore: store.articles
+    }
+}
+
+export default connect(mapStateToProps)(accordion(ArticleList))

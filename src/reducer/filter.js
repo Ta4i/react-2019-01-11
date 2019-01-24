@@ -10,6 +10,7 @@ const defaultFilter = {
 
 export default (filterInStore = defaultFilter, action) => {
   const {type, payload} = action
+  
   switch (type) {
     case FILTER_BY_DATE:
       return {...filterInStore, dateRange: payload.dateRange}
