@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { filterArticle } from '../../ac'
 
 class SelectFilter extends Component {
     state = {
@@ -27,6 +29,7 @@ class SelectFilter extends Component {
 
     handleSelectChange = (selectedOption) => {
         this.setState({ selectedOption })
+        this.props.dispatchSelect(selectedOption)
     }
 }
 
@@ -34,4 +37,16 @@ SelectFilter.propTypes = {
     articles : PropTypes.array
   }
 
-export default SelectFilter
+
+const mapStateToProps = (store) => ({
+    articles: store.articles,
+    selectedOption: store.filter.selected
+});
+const mapDispatchToProps = {
+    dispatchSelect: filterArticle
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SelectFilter)
