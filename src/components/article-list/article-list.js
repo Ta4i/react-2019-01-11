@@ -37,6 +37,23 @@ class ArticleList extends Component{
     }
 }
 
-export default connect(
-    (store) => ({articlesFromStore: store.articles})
-)(accordion(ArticleList))
+export default connect((store) => {
+    const {
+      selected,
+      dateSpan: {from, to}
+    } = store.filters
+    
+    const filteredArticles = store.articles.filter((article) => {
+      
+      const datePublished = Date.parse(article.date)
+      return (
+        (selected.length === 0) ?
+          store.articles :
+          selected.find((selected) => selected.value === article.id) &&
+          (!from || !to || (datePublished > from && datePublished < to))
+        )
+    })  
+    return {
+      articlesFromStore: filteredArticles                
+    }  
+  })(accordion(ArticleList))
