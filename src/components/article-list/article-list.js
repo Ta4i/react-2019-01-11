@@ -2,13 +2,12 @@ import React, {Component} from 'react';
 import Article, {TypeArticle} from '../article';
 import accordion from '../../decorators/accordion';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 
 export const TypeArticles = PropTypes.arrayOf(TypeArticle)
 
 class ArticleList extends Component{
     static propTypes = {
-        articlesFromStore: TypeArticles
+        articles: TypeArticles
     }
     render() {
         return <ul>{this.articles}</ul>;
@@ -22,21 +21,21 @@ class ArticleList extends Component{
         const {
             openItemId,
             toggleOpenArticle,
-            articlesFromStore
+            onArticleDelete,
+            articles
         } = this.props
 
-        return articlesFromStore.map(article => (
+        return articles.map(article => (
             <li key={article.id} className="test--art__container">
                 <Article
                     article={article}
                     isOpen={article.id === openItemId}
                     toggleArticle={toggleOpenArticle}
+                    onDelete={onArticleDelete}
                 />
             </li>
         ))
     }
 }
 
-export default connect(
-    (store) => ({articlesFromStore: store.articles})
-)(accordion(ArticleList))
+export default accordion(ArticleList);

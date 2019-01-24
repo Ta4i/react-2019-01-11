@@ -3,8 +3,6 @@ import CommentList, {TypeComments} from '../comment-list/comment-list';
 import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './article.css';
-import {connect} from 'react-redux';
-import {deleteArticle} from '../../ac';
 
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -43,7 +41,7 @@ class Article extends PureComponent {
     }
 
     handleDelete = () => {
-        this.props.dispatchDeleteArticle(this.props.article.id)
+        this.props.onDelete(this.props.article.id)
     }
 
     toggleOpen = () => {
@@ -69,12 +67,8 @@ class Article extends PureComponent {
 Article.propTypes = {
     isOpen: PropTypes.bool,
     toggleArticle: PropTypes.func,
+    onDelete: PropTypes.func,
     article: TypeArticle
 }
 
-export default connect(
-    null,
-    (dispatch) => ({
-        dispatchDeleteArticle: (id) => dispatch(deleteArticle(id))
-    })
-)(Article)
+export default Article
