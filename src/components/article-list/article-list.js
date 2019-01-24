@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import Article, {TypeArticle} from '../article';
 import accordion from '../../decorators/accordion';
+import selectFilter from '../../decorators/select-filter'
+import dateRangeFilter from '../../decorators/date-range-filter'
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
@@ -22,10 +24,11 @@ class ArticleList extends Component{
         const {
             openItemId,
             toggleOpenArticle,
+            filteredArticles,
             articlesFromStore
         } = this.props
 
-        return articlesFromStore.map(article => (
+        return (filteredArticles ? filteredArticles: articlesFromStore).map(article => (
             <li key={article.id} className="test--art__container">
                 <Article
                     article={article}
@@ -38,5 +41,9 @@ class ArticleList extends Component{
 }
 
 export default connect(
-    (store) => ({articlesFromStore: store.articles})
-)(accordion(ArticleList))
+    (store) => ({
+        articlesFromStore: store.articles,
+        articlesFilterFromStore: store.articlesFilter,
+        dateRangeFilterFromStore: store.dateRangeFilter,
+    })
+)(accordion(selectFilter(dateRangeFilter(ArticleList))))
