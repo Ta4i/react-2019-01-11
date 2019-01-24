@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import { connect } from 'react-redux'
+import { updateDateRangeFilter } from '../../ac'
 
-export default class Example extends React.Component {
+class DateRangeFilter extends Component {
+
     static defaultProps = {
         numberOfMonths: 2,
     };
@@ -10,23 +13,17 @@ export default class Example extends React.Component {
         super(props);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.handleResetClick = this.handleResetClick.bind(this);
-        this.state = this.getInitialState();
     }
-    getInitialState() {
-        return {
-            from: undefined,
-            to: undefined,
-        };
-    }
+
     handleDayClick(day) {
-        const range = DateUtils.addDayToRange(day, this.state);
-        this.setState(range);
+        const range = DateUtils.addDayToRange(day, this.props.dateRangeFilterFromStore);
+        this.props.dispatchUpdateDateRangeFilter(range);
     }
     handleResetClick() {
-        this.setState(this.getInitialState());
+        this.props.dispatchUpdateDateRangeFilter({ from: undefined, to: undefined });
     }
     render() {
-        const { from, to } = this.state;
+        const { from, to } = this.props.dateRangeFilterFromStore;
         const modifiers = { start: from, end: to };
         return (
             <div className="RangeExample">
@@ -55,3 +52,12 @@ export default class Example extends React.Component {
         );
     }
 }
+
+export default connect(
+  (store) => ({
+      dateRangeFilterFromStore: store.dateRangeFilter,
+  }),
+  (dispatch) => ({
+      dispatchUpdateDateRangeFilter: (value) => dispatch(updateDateRangeFilter(value))
+  })
+)(DateRangeFilter)
