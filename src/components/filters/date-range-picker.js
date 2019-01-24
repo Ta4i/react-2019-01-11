@@ -1,8 +1,11 @@
 import React from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import {filterArticles, filterData} from "../../ac";
+import {formatDate} from "../../utils";
+import connect from "react-redux/es/connect/connect";
 
-export default class Example extends React.Component {
+class DateRange extends React.Component {
     static defaultProps = {
         numberOfMonths: 2,
     };
@@ -10,23 +13,20 @@ export default class Example extends React.Component {
         super(props);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.handleResetClick = this.handleResetClick.bind(this);
-        this.state = this.getInitialState();
     }
-    getInitialState() {
-        return {
-            from: undefined,
-            to: undefined,
-        };
-    }
+
     handleDayClick(day) {
-        const range = DateUtils.addDayToRange(day, this.state);
-        this.setState(range);
+        const range = DateUtils.addDayToRange(day, this.props.filterData.datePickerValue);
+        this.props.dispatchFilterData('datePickerValue', range);
+        this.props.dispatchFilterArticles(this.props.filterData, 'datePickerValue', range);
     }
     handleResetClick() {
-        this.setState(this.getInitialState());
+        this.props.dispatchFilterData('datePickerValue');
+        this.props.dispatchFilterArticles(this.props.filterData, 'datePickerValue');
     }
+
     render() {
-        const { from, to } = this.state;
+        const { from, to } = this.props.filterData.datePickerValue;
         const modifiers = { start: from, end: to };
         return (
             <div className="RangeExample">
@@ -35,8 +35,8 @@ export default class Example extends React.Component {
                     {from && !to && 'Please select the last day.'}
                     {from &&
                     to &&
-                    `Selected from ${from.toLocaleDateString()} to
-                ${to.toLocaleDateString()}`}{' '}
+                    `Selected from ${formatDate(from)} to
+                ${formatDate(to)}`}{' '}
                     {from &&
                     to && (
                         <button className="link" onClick={this.handleResetClick}>
@@ -44,6 +44,7 @@ export default class Example extends React.Component {
                         </button>
                     )}
                 </p>
+
                 <DayPicker
                     className="Selectable"
                     numberOfMonths={this.props.numberOfMonths}
@@ -55,3 +56,18 @@ export default class Example extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (store) => ({
+    filterData: store.filterData
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    dispatchFilterData: (key, value) => dispatch(filterData(key, value)),
+    dispatchFilterArticles: (data, key, value) => dispatch(filterArticles(data, key, value))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DateRange)
+
