@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
 import { connect } from 'react-redux'
-import { selectArticle } from '../../ac'
+import { filterArticle } from '../../ac'
 
 class SelectFilter extends Component {
   state = {
@@ -33,12 +33,12 @@ class SelectFilter extends Component {
 }
 
 const mapStateToProps = (store) => ({
-   articleList: store.articleList
+  articleList: store.articleList
 })
 
 export default connect(
   mapStateToProps,
   (dispatch) => ({
-    dispatchSelectArticle: (selectedOption) => dispatch(selectArticle(selectedOption))
+    dispatchSelectArticle: (selectedOption) => dispatch(filterArticle(selectedOption))
   })
 )(SelectFilter)

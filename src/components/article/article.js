@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './article.css';
 import {connect} from 'react-redux';
-import {deleteArticle} from '../../ac';
+import {deleteArticle, filterArticle} from '../../ac';
 
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string.isRequired,
