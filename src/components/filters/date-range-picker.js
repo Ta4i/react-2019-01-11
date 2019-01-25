@@ -11,7 +11,7 @@ class DateRange extends React.Component {
     constructor(props) {
         super(props);
         this.handleDayClick = this.handleDayClick.bind(this);
-        //this.handleResetClick = this.handleResetClick.bind(this);
+        this.handleResetClick = this.handleResetClick.bind(this);
     }
     
     handleDayClick(day) {
@@ -19,10 +19,16 @@ class DateRange extends React.Component {
         const range = DateUtils.addDayToRange(day, dateRange);
         filterByDate(range);
     }
-    /* handleResetClick() {
+    handleResetClick() {
         const {filterByDate} = this.props;
         filterByDate(this.getInitialState());
-    } */
+    }
+    getInitialState() {
+        return {
+            from: null,
+            to: null,
+        };
+    }
     render() {
         const { from, to } = this.props.dateRange;
         const modifiers = { start: from, end: to };
@@ -35,12 +41,12 @@ class DateRange extends React.Component {
                     to &&
                     `Selected from ${from.toLocaleDateString()} to
                 ${to.toLocaleDateString()}`}{' '}
-                   {/*  {from &&
+                   {from &&
                     to && (
                         <button className="link" onClick={this.handleResetClick}>
                             Reset
                         </button>
-                    )} */}
+                    )}
                 </p>
                 <DayPicker
                     className="Selectable"
