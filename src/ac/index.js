@@ -17,7 +17,7 @@ export const filterArticle = (option) => ({
 export const filterByDateRange = (range) => ({
     type: FILTER_BY_DATE,
     payload: {
-        from: range.from,
-        to: range.to
+        fromDate: range.from,
+        toDate: range.to
     }
 })
