@@ -1,8 +1,10 @@
 import React from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import { filterByDateRange } from '../../ac';
+import { connect } from 'react-redux';
 
-export default class Example extends React.Component {
+class Example extends React.Component {
     static defaultProps = {
         numberOfMonths: 2,
     };
@@ -22,9 +24,11 @@ export default class Example extends React.Component {
     handleDayClick(day) {
         const range = DateUtils.addDayToRange(day, this.state);
         this.setState(range);
+        this.props.filterByDateRange(range);
     }
     handleResetClick() {
-        this.setState(this.getInitialState());
+      //  this.setState(this.getInitialState());
+      this.props.filterByDateRange(this.getInitialState());
     }
     render() {
         const { from, to } = this.state;
@@ -56,3 +60,15 @@ export default class Example extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (store) =>({
+    dateRangeFromStore : store.filter.dateRange});
+
+const mapDispatchToProps = (dispatch) => ({
+  filterByDateRange: (dateRange) => dispatch(filterByDateRange(dateRange))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Example)
