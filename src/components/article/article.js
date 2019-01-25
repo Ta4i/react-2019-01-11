@@ -72,9 +72,10 @@ Article.propTypes = {
     article: TypeArticle
 }
 
-export default connect(
-    null,
-    (dispatch) => ({
+const mapDispatchToProps = dispatch => {
+    return {
         dispatchDeleteArticle: (id) => dispatch(deleteArticle(id))
-    })
-)(Article)
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Article)

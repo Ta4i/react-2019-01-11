@@ -1,32 +1,36 @@
 import React from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
+import {connect} from 'react-redux';
+import {filterByDate} from '../../ac'
 
-export default class Example extends React.Component {
+class DateRange extends React.Component {
     static defaultProps = {
         numberOfMonths: 2,
-    };
+    };    
     constructor(props) {
         super(props);
         this.handleDayClick = this.handleDayClick.bind(this);
         this.handleResetClick = this.handleResetClick.bind(this);
-        this.state = this.getInitialState();
+    }
+    
+    handleDayClick(day) {
+        const {dateRange, filterByDate} = this.props;
+        const range = DateUtils.addDayToRange(day, dateRange);
+        filterByDate(range);
+    }
+    handleResetClick() {
+        const {filterByDate} = this.props;
+        filterByDate(this.getInitialState());
     }
     getInitialState() {
         return {
-            from: undefined,
-            to: undefined,
+            from: null,
+            to: null,
         };
     }
-    handleDayClick(day) {
-        const range = DateUtils.addDayToRange(day, this.state);
-        this.setState(range);
-    }
-    handleResetClick() {
-        this.setState(this.getInitialState());
-    }
     render() {
-        const { from, to } = this.state;
+        const { from, to } = this.props.dateRange;
         const modifiers = { start: from, end: to };
         return (
             <div className="RangeExample">
@@ -37,7 +41,7 @@ export default class Example extends React.Component {
                     to &&
                     `Selected from ${from.toLocaleDateString()} to
                 ${to.toLocaleDateString()}`}{' '}
-                    {from &&
+                   {from &&
                     to && (
                         <button className="link" onClick={this.handleResetClick}>
                             Reset
@@ -55,3 +59,14 @@ export default class Example extends React.Component {
         );
     }
 }
+
+const mapStateToProps = (store) => {
+    return {
+        dateRange: store.filter.dateRange,
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    {filterByDate}
+)(DateRange)
