@@ -18,14 +18,28 @@ class ArticleList extends Component{
         this.props.fetchData && this.props.fetchData()
     }
 
+    getVisibleArticles() {
+        const {
+            articlesFromStore,
+            filters : {selectedArticles, startDate, endDate} 
+        } = this.props
+
+        return articlesFromStore.filter((article => {
+            return selectedArticles.length <= 0 || selectedArticles.indexOf(article.id) >=0 
+        })).filter((article => {
+            return !startDate || new Date(article.date) >= new Date(startDate) 
+        })).filter((article => {
+            return !endDate || new Date(article.date) <= new Date(endDate) 
+        }))
+    }
+
     get articles() {
         const {
             openItemId,
             toggleOpenArticle,
-            articlesFromStore
         } = this.props
 
-        return articlesFromStore.map(article => (
+        return this.getVisibleArticles().map(article => (
             <li key={article.id} className="test--art__container">
                 <Article
                     article={article}
@@ -38,5 +52,8 @@ class ArticleList extends Component{
 }
 
 export default connect(
-    (store) => ({articlesFromStore: store.articles})
+    (store) => ({
+        articlesFromStore: store.articles,
+        filters: store.filters
+    })
 )(accordion(ArticleList))
