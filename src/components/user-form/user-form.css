@@ -1,0 +1,11 @@
+.container {
+  margin: 10px 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 300px));
+  grid-gap: 10px;
+}
+
+.button {
+  grid-column: 1 / 3;
+  text-align: center;
+}
