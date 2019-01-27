@@ -38,7 +38,12 @@ class UserForm extends Component {
         <label>Comment text:</label>
         <textarea value={this.state.text} onChange={this.handleTextChange} />
         <div className="button">
-          <button onClick={this.handleCreateComment}>Add comment</button>
+          <button
+            disabled={this.isButtonDisabled}
+            onClick={this.handleCreateComment}
+          >
+            Add comment
+          </button>
         </div>
       </div>
     )
@@ -51,6 +56,14 @@ class UserForm extends Component {
         {article.title}
       </option>
     ))
+  }
+
+  get isButtonDisabled() {
+    if (this.state.user && this.state.text && this.state.articleId) {
+      return false
+    } else {
+      return true
+    }
   }
 
   handleUserChange = (event) => {
