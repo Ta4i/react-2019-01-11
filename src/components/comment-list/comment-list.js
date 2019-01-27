@@ -4,6 +4,7 @@ import toggleOpen from '../../decorators/toggleOpen'
 import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './comment-list.css';
+import CommentForm from '../comment-form'
 
 export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
@@ -51,6 +52,7 @@ class CommentList extends Component {
                         <Comment id={id} />
                     </li>
                 ))}
+                <CommentForm/>
             </ul>
         ) : (
             <h3 className="test--comment-list__empty">No comments yet</h3>
