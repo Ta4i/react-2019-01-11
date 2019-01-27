@@ -16,9 +16,10 @@ class SelectFilter extends Component {
     }
 
     get optionsForSelect() {
-        return this.props.articles.map((item) => ({
-            value: item.id,
-            label: item.title
+        const { articlesData, articlesIds } = this.props;
+        return articlesIds.map((id) => ({
+            value: id,
+            label: articlesData[id].title
         }))
     }
 
@@ -41,7 +42,8 @@ const mapDispatchToPropsFunc = (dispatch) => {
 
 export default connect(
     state => ({
-        articles: state.articles,
+        articlesData: state.articles.data,
+        articlesIds: state.articles.ids,
         selectedOptions: state.filters.selected
     }),
     mapDispatchToPropsFunc
