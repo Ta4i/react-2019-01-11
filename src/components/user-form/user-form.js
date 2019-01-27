@@ -1,14 +1,28 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { createComment } from '../../ac'
+import { allArticlesAsListSelector, articlesSelector } from '../../selectors'
 import './user-form.css'
-import { allArticlesAsListSelector } from '../../selectors'
 
 class UserForm extends Component {
   state = {
     user: '',
     text: '',
     articleId: ''
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.articles !== this.props.articles) {
+      const { articles, articlesById } = this.props
+      const { articleId } = this.state
+      if (
+        !articles ||
+        !articles.length ||
+        (articleId && !(articleId in articlesById))
+      ) {
+        this.setState({ articleId: '' })
+      }
+    }
   }
 
   render() {
@@ -67,9 +81,11 @@ class UserForm extends Component {
 
 export default connect(
   (store) => ({
-    articles: allArticlesAsListSelector(store)
+    articles: allArticlesAsListSelector(store),
+    articlesById: articlesSelector(store)
   }),
   (dispatch) => ({
-    dispatchCreateComment: (comment, articleId) => dispatch(createComment(comment, articleId))
+    dispatchCreateComment: (comment, articleId) =>
+      dispatch(createComment(comment, articleId))
   })
 )(UserForm)
