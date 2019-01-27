@@ -16,9 +16,14 @@ export const deleteArticle = (id) => ({
   payload: { id }
 })
 
-export const createComment = (comment) => ({
+export const appendCommentToArticle = (commentId, articleId) => ({
+  type: 'APPEND_COMMENT',
+  payload: { commentId, articleId }
+})
+
+export const createComment = (comment, articleId) => ({
   type: CREATE_COMMENT,
-  payload: { comment }
+  payload: { comment, articleId }
 })
 
 export const changeSelection = (selected) => ({

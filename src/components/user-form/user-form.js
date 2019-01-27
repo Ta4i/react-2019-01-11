@@ -2,18 +2,23 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { createComment } from '../../ac'
 import './user-form.css'
+import { allArticlesAsListSelector } from '../../selectors'
 
 class UserForm extends Component {
   state = {
     user: '',
-    text: ''
+    text: '',
+    articleId: ''
   }
 
   render() {
     return (
       <div className="container">
         <label>Article to add comment to:</label>
-        <select>{this.articleOptions}</select>
+        <select onChange={this.handleArticleChange}>
+          <option value="">---Select article---</option>
+          {this.articleOptions}
+        </select>
         <label>Username:</label>
         <input value={this.state.user} onChange={this.handleUserChange} />
         <label>Comment text:</label>
@@ -46,17 +51,25 @@ class UserForm extends Component {
     })
   }
 
+  handleArticleChange = (event) => {
+    this.setState({
+      articleId: event.target.value
+    })
+  }
+
   handleCreateComment = () => {
-    const comment = { user: this.state.user, text: this.state.text }
-    this.props.dispatchCreateComment(comment)
+    if (this.state.user && this.state.text && this.state.articleId) {
+      const comment = { user: this.state.user, text: this.state.text }
+      this.props.dispatchCreateComment(comment, this.state.articleId)
+    }
   }
 }
 
 export default connect(
   (store) => ({
-    articles: store.articles
+    articles: allArticlesAsListSelector(store)
   }),
   (dispatch) => ({
-    dispatchCreateComment: (comment) => dispatch(createComment(comment))
+    dispatchCreateComment: (comment, articleId) => dispatch(createComment(comment, articleId))
   })
 )(UserForm)
