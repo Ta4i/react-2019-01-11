@@ -1,6 +1,7 @@
 import {createSelector} from 'reselect';
 
 export const filtersSelector = (store) => store.filters
+export const articlesIdsSelector = (store) => Object.keys(store.articles)
 export const articlesSelector = (store) => store.articles
 export const commentsSelector = (store) => store.comments
 export const idSelector = (_, ownProps) => ownProps.id
@@ -9,11 +10,10 @@ export const filteredArticlesSelector = createSelector(
     filtersSelector,
     articlesSelector,
     (filters, articles) => {
-        const {selected, dateRange: {from, to}} = filters
+        const {selected, dateRange: {from, to}} = filters;
 
-        console.log('filteredArticlesSelector');
-
-        return articles.filter(article => {
+        return Object.keys(articles).filter(id => {
+            const article = articles[id];
             const publishedDate = Date.parse(article.date)
             return (
                     !selected.length ||
@@ -24,6 +24,15 @@ export const filteredArticlesSelector = createSelector(
                 )
         })
     }
+)
+
+export const createArticleSelector = () => createSelector(
+  articlesSelector,
+  idSelector,
+  (articles, id) => {
+    console.log('articleSelector', id);
+    return articles[id];
+  }
 )
 
 export const createCommentSelector = () => createSelector(
