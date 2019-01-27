@@ -1,5 +1,5 @@
 import {normalizedArticles} from '../fixtures';
-import {DELETE_ARTICLE} from '../constants';
+import {DELETE_ARTICLE, ADD_COMMENT} from '../constants';
 
 const articlesMap = normalizedArticles.reduce((acc, article) => {
     return {
@@ -15,8 +15,7 @@ const initialState = {
     ids: articlesIds
 }
 
-export default (articles = initialState, action) => {
-    const {type, payload} = action
+export default (articles = initialState, {type, payload}) => {
     switch (type) {
         case DELETE_ARTICLE:
 
@@ -26,6 +25,20 @@ export default (articles = initialState, action) => {
                 ...articles,
                 ids: articles.ids.filter(id => id !== payload.id),
                 data: newData,
+            }
+        case ADD_COMMENT:
+            const { articleId, id } = payload
+            const targetArticle = articles.data[articleId]
+            // Выглядит монструозно, как можно упростить создание нового объекта?
+            return {
+                ...articles,
+                data: {
+                    ...articles.data,
+                    [articleId]: {
+                        ...targetArticle,
+                        comments: [...targetArticle.comments, id]
+                    }
+                }
             }
         default:
             return articles

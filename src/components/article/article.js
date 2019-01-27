@@ -57,9 +57,11 @@ class Article extends PureComponent {
             <section className="test--article_body">
                 <p>{article.text}</p>
                 {
-                    this.state.error ?
-                        null :
-                        <CommentList comments={article.comments} />
+                    this.state.error
+                        ? null
+                        // Решил пробросить articleId, чтобы обернуть список комментариев и форму в один блок
+                        // Не придумал, как решить это по-другому, логика show \ hide в CommentList
+                        : <CommentList articleId={article.id} comments={article.comments} />
                 }
             </section>
         )
