@@ -4,7 +4,8 @@ import {
     CHANGE_SELECTION,
     CHANGE_DATE_RANGE,
     RESET_DATE_RANGE,
-    ADD_COMMENT
+    ADD_COMMENT,
+    DELETE_COMMENT
 } from '../constants';
 
 export const increment = () => ({
@@ -32,5 +33,10 @@ export const resetDateRange = () => ({
 
 export const addComment = (commentData) => ({
     type: ADD_COMMENT,
+    payload: {...commentData}
+})
+
+export const deleteComment = (commentData) => ({
+    type: DELETE_COMMENT,
     payload: {...commentData}
 })

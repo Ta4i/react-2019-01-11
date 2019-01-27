@@ -1,5 +1,5 @@
 import {normalizedComments} from '../fixtures';
-import { ADD_COMMENT } from '../constants';
+import { ADD_COMMENT, DELETE_COMMENT } from '../constants';
 
 const defaultComments = normalizedComments.reduce((acc, comment) => {
     return {
@@ -19,6 +19,12 @@ export default (comments = defaultComments, { type, payload }) => {
                     user,
                     text
                 }
+            }
+            case DELETE_COMMENT: {
+                const { id } = payload
+                const newComments = {...comments}
+                delete newComments[id]
+                return newComments
             }
         default:
             return comments

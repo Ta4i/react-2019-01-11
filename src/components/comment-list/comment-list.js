@@ -11,6 +11,7 @@ export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 class CommentList extends Component {
     static propTypes = {
         comments: TypeComments,
+        onCommentAdd: PropTypes.func,
 
         // from decorator
         isOpen: PropTypes.bool,
@@ -41,7 +42,7 @@ class CommentList extends Component {
     }
 
     get body() {
-        const { comments, articleId, isOpen } = this.props
+        const { comments, isOpen, onCommentAdd, onCommentDelete } = this.props
 
         if (!isOpen) return null;
 
@@ -49,7 +50,7 @@ class CommentList extends Component {
             <ul>
                 {comments.map((id) => (
                     <li key={id} className="test--comment-list__item">
-                        <Comment id={id} />
+                        <Comment id={id} onDelete={onCommentDelete} />
                     </li>
                 ))}
             </ul>
@@ -59,7 +60,7 @@ class CommentList extends Component {
         return (
             <div>
                 {body}
-                <UserForm articleId={articleId} />
+                <UserForm onSubmit={onCommentAdd} />
             </div>
         )
     }

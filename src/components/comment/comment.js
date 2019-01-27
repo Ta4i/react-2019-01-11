@@ -9,11 +9,15 @@ export const TypeComment = PropTypes.shape({
 })
 
 class Comment extends Component {
+    handleBtnClick = () => {
+        const { id, onDelete } = this.props
+        onDelete(id)
+    }
     render() {
         const { user, text } = this.props.comment
         return (
             <div>
-                <h4>{user}</h4>
+                <h4>{user}<button onClick={this.handleBtnClick}>Delete</button></h4>
                 <p>{text}</p>
             </div>
         )
@@ -22,7 +26,8 @@ class Comment extends Component {
 
 Comment.propTypes = {
     comment: TypeComment,
-    id: PropTypes.string.isRequired
+    id: PropTypes.string.isRequired,
+    onDelete: PropTypes.func.isRequired
 }
 
 const initMapStateToProps = () => {

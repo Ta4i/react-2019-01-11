@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './article.css';
 import {connect} from 'react-redux';
-import {deleteArticle} from '../../ac';
+import {deleteArticle, addComment, deleteComment} from '../../ac';
 
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -50,6 +50,22 @@ class Article extends PureComponent {
         this.props.toggleArticle(this.props.article.id)
     }
 
+    handleAddComment = (comment) => {
+        const { article: { id: articleId }, addComment } = this.props
+        addComment({
+            ...comment,
+            articleId
+        })
+    }
+
+    handleDeleteComment = (id) => {
+        const { article: { id: articleId }, deleteComment } = this.props
+        deleteComment({
+            id,
+            articleId
+        })
+    }
+
     get body() {
         const {article, isOpen} = this.props
         if (!isOpen) return null
@@ -59,9 +75,11 @@ class Article extends PureComponent {
                 {
                     this.state.error
                         ? null
-                        // Решил пробросить articleId, чтобы обернуть список комментариев и форму в один блок
-                        // Не придумал, как решить это по-другому, логика show \ hide в CommentList
-                        : <CommentList articleId={article.id} comments={article.comments} />
+                        : <CommentList
+                            onCommentAdd={this.handleAddComment}
+                            onCommentDelete={this.handleDeleteComment}
+                            comments={article.comments}
+                        />
                 }
             </section>
         )
@@ -77,6 +95,8 @@ Article.propTypes = {
 export default connect(
     null,
     (dispatch) => ({
-        dispatchDeleteArticle: (id) => dispatch(deleteArticle(id))
+        dispatchDeleteArticle: (id) => dispatch(deleteArticle(id)),
+        addComment: (comment) => dispatch(addComment(comment)),
+        deleteComment: (comment) => dispatch(deleteComment(comment))
     })
 )(Article)

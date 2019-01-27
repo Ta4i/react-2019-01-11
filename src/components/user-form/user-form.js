@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux';
-import {addComment} from '../../ac';
+import PropTypes from 'prop-types'
 
 class UserForm extends Component {
     state = {
@@ -33,12 +32,10 @@ class UserForm extends Component {
     handleBtnClick = () => {
         console.log('handleBtClick');
         const { user, text } = this.state
-        const { articleId } = this.props
         if (user && text) {
-            this.props.addComment({
+            this.props.onSubmit({
                 user,
                 text,
-                articleId
             });
             return this.setState({
                 user: '',
@@ -64,4 +61,8 @@ class UserForm extends Component {
     }
 }
 
-export default connect(null, {addComment})(UserForm)
+UserForm.propTypes = {
+    onSubmit: PropTypes.func,
+}
+
+export default UserForm
