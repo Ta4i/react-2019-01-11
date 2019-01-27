@@ -41,7 +41,7 @@ class CommentList extends Component {
     }
 
     get body() {
-        const { comments, isOpen } = this.props
+        const { comments, isOpen, addComment } = this.props
 
         if (!isOpen) return null;
 
@@ -52,7 +52,7 @@ class CommentList extends Component {
                         <Comment id={id} />
                     </li>
                 ))}
-                <CommentForm/>
+                <CommentForm addComment={addComment}/>
             </ul>
         ) : (
             <h3 className="test--comment-list__empty">No comments yet</h3>

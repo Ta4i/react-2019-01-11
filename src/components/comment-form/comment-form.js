@@ -25,7 +25,7 @@ class CommentForm extends Component {
           <textarea id="text" rows="5" cols="63" value={text}
                  onChange={(event) => this.onChangeField('text', event.target.value)}/>
         </div>
-        <button onClick={this.add}>submit</button>
+        <button onClick={this.addComment}>submit</button>
       </div>
     )
   }
@@ -36,9 +36,15 @@ class CommentForm extends Component {
     });
   }
 
-  add = () => {
+  addComment = () => {
     const { user, text } = this.state;
-    user && text && this.props.addComment(user, text);
+    if (user && text) {
+      user && text && this.props.addComment({user, text});
+      this.setState({
+        user: '',
+        text: ''
+      })
+    }
   }
 
 }

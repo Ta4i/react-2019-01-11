@@ -29,18 +29,12 @@ export const filteredArticlesSelector = createSelector(
 export const createArticleSelector = () => createSelector(
   articlesSelector,
   idSelector,
-  (articles, id) => {
-    console.log('articleSelector', id);
-    return articles[id];
-  }
+  (articles, id) => articles[id]
 )
 
 export const createCommentSelector = () => createSelector(
     commentsSelector,
     idSelector,
-    (comments, id) => {
-        console.log('commentSelector', id);
-        return comments[id]
-    }
+    (comments, id) => comments[id]
 )
 
