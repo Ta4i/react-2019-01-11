@@ -1,37 +1,22 @@
 import React from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
-import { filterByDateRange } from '../../ac';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
+import {changeDateRange, resetDateRange} from '../../ac';
 
-class Example extends React.Component {
+class DateRange extends React.Component {
     static defaultProps = {
         numberOfMonths: 2,
     };
-
-      constructor(props) {
-        super(props);
-        this.handleDayClick = this.handleDayClick.bind(this);
-        this.handleResetClick = this.handleResetClick.bind(this);
-        this.state = this.getInitialState();
+    handleDayClick = (day) => {
+        const range = DateUtils.addDayToRange(day, this.props.dateRange);
+        this.props.changeDateRange(range);
     }
-    getInitialState() {
-        return {
-            from: undefined,
-            to: undefined,
-        };
-    }
-    handleDayClick(day) {
-        const range = DateUtils.addDayToRange(day, this.state);
-        this.setState(range);
-        this.props.filterByDateRange(range);
-    }
-    handleResetClick() {
-      //  this.setState(this.getInitialState());
-      this.props.filterByDateRange(this.getInitialState());
+    handleResetClick = () => {
+        this.props.resetDateRange();
     }
     render() {
-        const { from, to } = this.state;
+        const { from, to } = this.props.dateRange;
         const modifiers = { start: from, end: to };
         return (
             <div className="RangeExample">
@@ -61,14 +46,12 @@ class Example extends React.Component {
     }
 }
 
-const mapStateToProps = (store) =>({
-    dateRangeFromStore : store.filter.dateRange});
-
-const mapDispatchToProps = (dispatch) => ({
-  filterByDateRange: (dateRange) => dispatch(filterByDateRange(dateRange))
-});
-
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Example)
+    state => ({
+        dateRange: state.filters.dateRange
+    }),
+    {
+        changeDateRange,
+        resetDateRange
+    }
+)(DateRange)
