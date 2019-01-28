@@ -7,10 +7,9 @@ import {connect} from 'react-redux';
 import {deleteArticle} from '../../ac';
 
 export const TypeArticle = PropTypes.shape({
-    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
-    comments: TypeComments
+    comments: TypeComments,
 })
 
 class Article extends PureComponent {

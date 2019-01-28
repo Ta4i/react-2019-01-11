@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux';
 import  {addComment} from '../../ac'
-import comment from '../comment/comment';
 
 class CommentForm extends Component {
   state = {

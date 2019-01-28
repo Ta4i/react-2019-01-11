@@ -10,15 +10,14 @@ export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
 class CommentList extends Component {
     static propTypes = {
-        comments: TypeComments,
-
+        article: PropTypes.object,
         // from decorator
         isOpen: PropTypes.bool,
         toggleOpenItem: PropTypes.func.isRequired
     }
 
     static defaultProps = {
-        comments: []
+        article: {}
     }
 
     render() {
