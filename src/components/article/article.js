@@ -5,6 +5,7 @@ import CSSTransition from 'react-addons-css-transition-group'
 import './article.css';
 import {connect} from 'react-redux';
 import {deleteArticle} from '../../ac';
+import { createArticleSelector } from '../../selectors';
 
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -43,11 +44,11 @@ class Article extends PureComponent {
     }
 
     handleDelete = () => {
-        this.props.dispatchDeleteArticle(this.props.article.id)
+        this.props.dispatchDeleteArticle(this.props.id)
     }
 
     toggleOpen = () => {
-        this.props.toggleArticle(this.props.article.id)
+        this.props.toggleArticle(this.props.id)
     }
 
     get body() {
@@ -59,7 +60,7 @@ class Article extends PureComponent {
                 {
                     this.state.error ?
                         null :
-                        <CommentList comments={article.comments} />
+                        <CommentList comments={article.comments} parentId={article.id} />
                 }
             </section>
         )
@@ -69,11 +70,20 @@ class Article extends PureComponent {
 Article.propTypes = {
     isOpen: PropTypes.bool,
     toggleArticle: PropTypes.func,
-    article: TypeArticle
+    article: TypeArticle,
+    id: PropTypes.string.isRequired
 }
 
+const mapStateToProps = () => {
+    const articleSelector = createArticleSelector();
+    return (store, ownProps) => ({
+        article: articleSelector(store, ownProps)
+    })
+}
+
+
 export default connect(
-    null,
+    mapStateToProps,
     (dispatch) => ({
         dispatchDeleteArticle: (id) => dispatch(deleteArticle(id))
     })
