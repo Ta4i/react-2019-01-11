@@ -1,6 +1,9 @@
+import {ADD_COMMENT} from "../constants"
+const uuidv1 = require('uuid/v1')
+
 export default store => next => action => {
-    console.log('before', store.getState());
-    console.log('dispatching', action);
+    if(action.type === ADD_COMMENT){
+
+    }
     next(action);
-    console.log('after', store.getState());
 }

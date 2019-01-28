@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Comment from '../comment/comment'
+import CommentForm from "../comments-form"
 import toggleOpen from '../../decorators/toggleOpen'
 import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
@@ -34,9 +35,16 @@ class CommentList extends Component {
 
                 >
                     {this.body}
+                   {this.commentForm}
                 </CSSTransition>
             </div>
         )
+    }
+
+    get commentForm(){
+       const { isOpen } = this.props
+       if (!isOpen) return null
+       return <CommentForm/>
     }
 
     get body() {
