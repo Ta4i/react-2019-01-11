@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { addComment } from '../../ac'
 
 class CommentForm extends Component {
   state = {
@@ -39,9 +41,26 @@ class CommentForm extends Component {
   }
 
   handleSubmitClick = () => {
-    console.log(this.state.user)
-    console.log(this.state.text)
+
+    const { user, text } = this.state
+    const { articleId } = this.props
+
+    this.props.dispatchAddComment({
+      user,
+      text,
+      articleId
+    })
+
+    this.setState({
+      user: '',
+      text: ''
+    })
   }
 }
 
-export default CommentForm
+export default connect(
+  null,
+  (dispatch) => ({
+    dispatchAddComment: (comment) => dispatch(addComment(comment))
+  })
+)(CommentForm)

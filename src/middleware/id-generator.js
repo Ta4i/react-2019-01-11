@@ -5,8 +5,7 @@ export default store => next => action => {
 
     if(action.type === ADD_COMMENT) {
         const id = uuid.v1()
-        action.payload.id = id
-        console.log(id)
+        action.payload.comment.id = id
     }
 
     next(action);

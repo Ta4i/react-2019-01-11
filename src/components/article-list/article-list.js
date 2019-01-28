@@ -28,8 +28,6 @@ class ArticleList extends Component {
       articlesFromStore
     } = this.props
 
-    console.log(articlesFromStore)
-
     return Object.keys(articlesFromStore).map(key => {
       const article = articlesFromStore[key]
       return (
