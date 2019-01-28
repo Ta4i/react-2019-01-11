@@ -13,7 +13,22 @@ export const filteredArticlesSelector = createSelector(
 
         console.log('filteredArticlesSelector');
 
-        return articles.filter(article => {
+      return Object.keys(articles).reduce(function (filtered, key) {
+        const article = articles[key]
+        const publishedDate = Date.parse(article.date)
+
+        if ((
+            !selected.length ||
+            selected.find((selected) => selected.value === article.id)
+          ) &&
+          (
+            (!from || !to || (publishedDate > from && publishedDate < to))
+          )) filtered[key] = article;
+
+        return filtered;
+      }, {});
+
+        return Object.assign(...Object.entries(articles).filter(article => {
             const publishedDate = Date.parse(article.date)
             return (
                     !selected.length ||
@@ -22,7 +37,7 @@ export const filteredArticlesSelector = createSelector(
                 (
                     (!from || !to || (publishedDate > from && publishedDate < to))
                 )
-        })
+        }))
     }
 )
 
