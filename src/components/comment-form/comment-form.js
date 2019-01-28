@@ -39,7 +39,7 @@ class CommentForm extends Component {
   addComment = () => {
     const { user, text } = this.state;
     if (user && text) {
-      user && text && this.props.addComment({user, text});
+      this.props.addComment({user, text});
       this.setState({
         user: '',
         text: ''

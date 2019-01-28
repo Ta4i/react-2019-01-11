@@ -19,7 +19,7 @@ export default (articles = defaultArticles, action) => {
           let article = articles[payload.id];
           article = {
             ...article,
-            comments: [...article.comments || [], payload.commentId]
+            comments: [...article.comments, payload.commentId]
           }
 
           return {
