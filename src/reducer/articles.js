@@ -1,11 +1,33 @@
 import {normalizedArticles} from '../fixtures';
-import {DELETE_ARTICLE} from '../constants';
+import {ADD_COMMENT, DELETE_ARTICLE} from '../constants';
 
-export default (articles = normalizedArticles, action) => {
+const defaultArticles = normalizedArticles.reduce((acc, article) => {
+    return {
+        ...acc,
+        [article.id]: article
+    }
+}, {})
+
+export default (articles = defaultArticles, action) => {
     const {type, payload} = action
     switch (type) {
+        case ADD_COMMENT:
+            const {articleId, commentId} = payload.comment;
+
+            let commentedArticles = {...articles};
+            let commentedArticle = commentedArticles[articleId];
+
+            commentedArticles[articleId].comments = [...commentedArticle.comments, commentId];
+
+            console.log('comment added')
+            console.log(commentedArticles)
+
+            return commentedArticles;
         case DELETE_ARTICLE:
-            return articles.filter(article => article.id !== payload.id)
+            let newArticles = {...articles};
+            delete newArticles[payload.id];
+
+            return newArticles;
         default:
             return articles
     }
