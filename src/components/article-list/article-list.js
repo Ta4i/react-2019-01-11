@@ -12,7 +12,6 @@ class ArticleList extends Component{
         articlesFromStore: TypeArticles
     }
     render() {
-        console.log('article-list render');
         return <ul>{this.articles}</ul>;
     }
 
@@ -41,7 +40,6 @@ class ArticleList extends Component{
 
 export default connect(
     store => {
-        console.log('article-list connect');
         return {
             articlesFromStore: filteredArticlesSelector(store)
         }
