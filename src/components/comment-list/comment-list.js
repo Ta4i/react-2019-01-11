@@ -4,16 +4,17 @@ import toggleOpen from '../../decorators/toggleOpen'
 import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './comment-list.css';
+import CommentForm from '../comment/comment-form';
 
 export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
 class CommentList extends Component {
     static propTypes = {
         comments: TypeComments,
-
-        // from decorator
+         // from decorator
         isOpen: PropTypes.bool,
-        toggleOpenItem: PropTypes.func.isRequired
+        toggleOpenItem: PropTypes.func.isRequired,
+        parentId: PropTypes.string.isRequired
     }
 
     static defaultProps = {
@@ -21,7 +22,7 @@ class CommentList extends Component {
     }
 
     render() {
-        const { isOpen, toggleOpenItem } = this.props
+        const { isOpen, toggleOpenItem} = this.props
         return (
             <div>
                 <button onClick={toggleOpenItem} className="test--comment-list__btn">
@@ -40,10 +41,11 @@ class CommentList extends Component {
     }
 
     get body() {
-        const { comments, isOpen } = this.props
+        
+        const { comments, isOpen ,parentId} = this.props
 
         if (!isOpen) return null;
-
+        
         const body = comments.length ? (
             <ul>
                 {comments.map((id) => (
@@ -55,7 +57,9 @@ class CommentList extends Component {
         ) : (
             <h3 className="test--comment-list__empty">No comments yet</h3>
         )
-        return <div>{body}</div>
+        return (<div><div>{body}</div>
+            <CommentForm parentId={parentId}></CommentForm>
+        </div>)
     }
 }
 

@@ -11,7 +11,7 @@ export const filteredArticlesSelector = createSelector(
     (filters, articles) => {
         const {selected, dateRange: {from, to}} = filters
 
-        console.log('filteredArticlesSelector');
+        //console.log('filteredArticlesSelector');
 
         return articles.filter(article => {
             const publishedDate = Date.parse(article.date)
@@ -30,8 +30,18 @@ export const createCommentSelector = () => createSelector(
     commentsSelector,
     idSelector,
     (comments, id) => {
-        console.log('commentSelector', id);
+        //console.log('commentSelector', id);
         return comments[id]
     }
 )
 
+export const createArticleSelector = () => createSelector(
+    articlesSelector,
+    idSelector,
+    (articles, id) => {
+        //console.log('articlesSelector', id);
+        const filteredArray = articles.filter(article => article.id === id);
+        const res = filteredArray.length ? filteredArray[0] : []
+        return res;
+    }
+)

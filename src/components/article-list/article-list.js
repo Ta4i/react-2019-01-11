@@ -30,7 +30,8 @@ class ArticleList extends Component{
         return articlesFromStore.map(article => (
             <li key={article.id} className="test--art__container">
                 <Article
-                    article={article}
+                    //article={article}
+                    id={article.id}
                     isOpen={article.id === openItemId}
                     toggleArticle={toggleOpenArticle}
                 />
@@ -46,5 +47,4 @@ export default connect(
             articlesFromStore: filteredArticlesSelector(store)
         }
     }
-)
-(accordion(ArticleList))
+)(accordion(ArticleList))
