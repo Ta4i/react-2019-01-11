@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './article.css';
 import {connect} from 'react-redux';
-import {deleteArticle} from '../../ac';
+import {deleteArticle, addCommentArticle} from '../../ac';
+import { createArticleSelector } from '../../selectors'
 
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -21,7 +22,7 @@ class Article extends PureComponent {
         this.setState({error})
     }
     render() {
-        const {article: {title}, isOpen} = this.props
+        const {article: {title}, isOpen} = this.props;
         return (
             <div>
                 <h3>
@@ -59,10 +60,22 @@ class Article extends PureComponent {
                 {
                     this.state.error ?
                         null :
-                        <CommentList comments={article.comments} />
+                        <CommentList addComment={this.handleAddComment}
+                                     comments={article.comments}
+                        />
                 }
             </section>
         )
+    }
+
+    handleAddComment = (comment) => {
+        const { dispatchAddComment, id: articleId } = this.props;
+
+        dispatchAddComment({
+            id: null,
+            articleId,
+            ...comment
+        });
     }
 }
 
@@ -72,9 +85,19 @@ Article.propTypes = {
     article: TypeArticle
 }
 
+const initMapStateToProps = () => {
+    const articleSelector = createArticleSelector();
+    return (store, ownProps) => {
+        return {
+           article: articleSelector(store, ownProps)
+        }
+    }
+}
+
 export default connect(
-    null,
+    initMapStateToProps,
     (dispatch) => ({
-        dispatchDeleteArticle: (id) => dispatch(deleteArticle(id))
+        dispatchDeleteArticle: (id) => dispatch(deleteArticle(id)),
+        dispatchAddComment: (comment) => dispatch(addCommentArticle(comment))
     })
 )(Article)

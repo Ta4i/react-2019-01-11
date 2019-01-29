@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
 import {connect} from 'react-redux'
+
 import {changeSelection} from '../../ac';
+import {articlesSelector} from  '../../selectors';
 
 class SelectFilter extends Component {
     render() {
@@ -16,9 +18,9 @@ class SelectFilter extends Component {
     }
 
     get optionsForSelect() {
-        return this.props.articles.map((item) => ({
-            value: item.id,
-            label: item.title
+        return Object.entries(this.props.articles).map(([key, value]) => ({
+            value: key,
+            label: value.title
         }))
     }
 
@@ -41,7 +43,7 @@ const mapDispatchToPropsFunc = (dispatch) => {
 
 export default connect(
     state => ({
-        articles: state.articles,
+        articles: articlesSelector(state),
         selectedOptions: state.filters.selected
     }),
     mapDispatchToPropsFunc
