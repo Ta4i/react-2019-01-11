@@ -59,7 +59,7 @@ class Article extends PureComponent {
                 {
                     this.state.error ?
                         null :
-                        <CommentList comments={article.comments} />
+                        <CommentList comments={article.comments} articleId={article.id} />
                 }
             </section>
         )

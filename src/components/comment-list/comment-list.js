@@ -4,6 +4,7 @@ import toggleOpen from '../../decorators/toggleOpen'
 import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './comment-list.css';
+import CommentForm from '../comment-form'
 
 export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
@@ -40,7 +41,7 @@ class CommentList extends Component {
     }
 
     get body() {
-        const { comments, isOpen } = this.props
+        const { articleId, comments, isOpen } = this.props
 
         if (!isOpen) return null;
 
@@ -55,7 +56,11 @@ class CommentList extends Component {
         ) : (
             <h3 className="test--comment-list__empty">No comments yet</h3>
         )
-        return <div>{body}</div>
+        return (
+          <div>
+            {body}
+            <CommentForm articleId={articleId} />
+          </div>)
     }
 }
 
