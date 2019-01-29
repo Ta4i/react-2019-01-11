@@ -35,3 +35,12 @@ export const createCommentSelector = () => createSelector(
     }
 )
 
+export const createArticleSelector = () => createSelector(
+    articlesSelector,
+    idSelector,
+    (articles, id) => {
+        console.log('articleSelector', id);
+        return articles.filter(article => article.id === id)[0]
+    }
+)
+

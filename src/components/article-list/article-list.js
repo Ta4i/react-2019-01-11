@@ -30,7 +30,7 @@ class ArticleList extends Component{
         return articlesFromStore.map(article => (
             <li key={article.id} className="test--art__container">
                 <Article
-                    article={article}
+                    id={article.id}
                     isOpen={article.id === openItemId}
                     toggleArticle={toggleOpenArticle}
                 />

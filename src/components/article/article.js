@@ -5,6 +5,7 @@ import CSSTransition from 'react-addons-css-transition-group'
 import './article.css';
 import {connect} from 'react-redux';
 import {deleteArticle} from '../../ac';
+import { createArticleSelector } from '../../selectors';
 
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -21,11 +22,11 @@ class Article extends PureComponent {
         this.setState({error})
     }
     render() {
-        const {article: {title}, isOpen} = this.props
+        const {article, isOpen} = this.props
         return (
             <div>
                 <h3>
-                    {title}
+                    {article.title}
                     <button className="test--article__btn" onClick={this.toggleOpen}>
                         {isOpen ? 'close' : 'open'}
                     </button>
@@ -43,11 +44,11 @@ class Article extends PureComponent {
     }
 
     handleDelete = () => {
-        this.props.dispatchDeleteArticle(this.props.article.id)
+        this.props.dispatchDeleteArticle(this.props.id)
     }
 
     toggleOpen = () => {
-        this.props.toggleArticle(this.props.article.id)
+        this.props.toggleArticle(this.props.id)
     }
 
     get body() {
@@ -59,7 +60,7 @@ class Article extends PureComponent {
                 {
                     this.state.error ?
                         null :
-                        <CommentList comments={article.comments} />
+                        <CommentList articleId={article.id} comments={article.comments} />
                 }
             </section>
         )
@@ -69,11 +70,20 @@ class Article extends PureComponent {
 Article.propTypes = {
     isOpen: PropTypes.bool,
     toggleArticle: PropTypes.func,
-    article: TypeArticle
+    id:  PropTypes.string.isRequired
+}
+
+const initMapStateToProps = () => {
+    const articleSelector = createArticleSelector()
+    return (store, ownProps) => {
+        return {
+            article: articleSelector(store, ownProps)
+        }
+    }
 }
 
 export default connect(
-    null,
+    initMapStateToProps,
     (dispatch) => ({
         dispatchDeleteArticle: (id) => dispatch(deleteArticle(id))
     })
