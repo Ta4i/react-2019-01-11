@@ -4,20 +4,20 @@ import toggleOpen from '../../decorators/toggleOpen'
 import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './comment-list.css';
+import CommentForm from '../comment-form'
 
 export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
 class CommentList extends Component {
     static propTypes = {
-        comments: TypeComments,
-
+        article: PropTypes.object,
         // from decorator
         isOpen: PropTypes.bool,
         toggleOpenItem: PropTypes.func.isRequired
     }
 
     static defaultProps = {
-        comments: []
+        article: {}
     }
 
     render() {
@@ -33,18 +33,19 @@ class CommentList extends Component {
                     transitionLeaveTimeout={300}
 
                 >
-                    {this.body}
+                    {this.body}                    
                 </CSSTransition>
             </div>
         )
     }
 
     get body() {
-        const { comments, isOpen } = this.props
+        const { article: {comments=[], id}, isOpen } = this.props
 
         if (!isOpen) return null;
 
         const body = comments.length ? (
+            <>
             <ul>
                 {comments.map((id) => (
                     <li key={id} className="test--comment-list__item">
@@ -52,8 +53,13 @@ class CommentList extends Component {
                     </li>
                 ))}
             </ul>
+            <CommentForm articleId={id} />
+            </>
         ) : (
+            <>
             <h3 className="test--comment-list__empty">No comments yet</h3>
+            <CommentForm articleId={id} />
+            </>
         )
         return <div>{body}</div>
     }

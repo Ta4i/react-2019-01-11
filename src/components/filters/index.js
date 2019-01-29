@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import Select from './select'
+import SelectFilter from './select'
 import DateRange from './date-range-picker'
 
 class Filters extends Component {
     render() {
+        
         return (
             <div>
-                <Select />
+                <SelectFilter articles={this.props.articles} />
                 <DateRange />
             </div>
         )
