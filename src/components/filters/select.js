@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import Select from 'react-select'
-import {connect} from 'react-redux'
-import {changeSelection} from '../../ac';
+import { connect } from 'react-redux'
+import { changeSelection } from '../../ac';
+import { allArticlesAsListSelector } from '../../selectors'
 
 class SelectFilter extends Component {
     render() {
@@ -41,7 +42,7 @@ const mapDispatchToPropsFunc = (dispatch) => {
 
 export default connect(
     state => ({
-        articles: state.articles,
+        articles: allArticlesAsListSelector(state),
         selectedOptions: state.filters.selected
     }),
     mapDispatchToPropsFunc
