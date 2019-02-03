@@ -5,37 +5,61 @@ import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './comment-list.css';
 import CommentForm from '../comment-form';
+import Loader from '../common/loader';
+import { connect } from 'react-redux';
+import { loadAllComments } from '../../ac';
+import {
+    commentsLoadingSelector,
+    commentsLoadedSelector
+ } from '../../selectors';
+
 
 export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
 class CommentList extends Component {
     static propTypes = {
         article: PropTypes.object,
+        fetchData: PropTypes.func,
 
         // from decorator
         isOpen: PropTypes.bool,
-        toggleOpenItem: PropTypes.func.isRequired
+        toggleOpenItem: PropTypes.func.isRequired,
+
+        // from connect
+        loading: PropTypes.bool,
+        loaded: PropTypes.bool,
     }
 
     static defaultProps = {
         comments: []
     }
 
+    componentDidUpdate(prevProps) {
+        const { isOpen, loaded, fetchData } = this.props; 
+        !prevProps.isOpen && isOpen && !loaded && fetchData && fetchData()
+    }
+
     render() {
-        const { isOpen, toggleOpenItem } = this.props
+        const { isOpen, toggleOpenItem, loading } = this.props
         return (
             <div>
                 <button onClick={toggleOpenItem} className="test--comment-list__btn">
                     {isOpen ? 'hide comments' : 'show comments'}
                 </button>
-                <CSSTransition
-                    transitionName="comment-list"
-                    transitionEnterTimeout={300}
-                    transitionLeaveTimeout={300}
-
-                >
-                    {this.body}
-                </CSSTransition>
+                {loading
+                    ? <Loader />
+                    : (
+                        <CSSTransition
+                            transitionName="comment-list"
+                            transitionEnterTimeout={300}
+                            transitionLeaveTimeout={300}
+                            transitionAppear
+                            transitionAppearTimeout={600}
+                        >
+                            {this.body}
+                        </CSSTransition>
+                    )
+                }
             </div>
         )
     }
@@ -46,12 +70,13 @@ class CommentList extends Component {
                 comments = [],
                 id: articleId
             },
-            isOpen
+            isOpen,
+            loaded,
         } = this.props
 
         if (!isOpen) return null;
 
-        const body = comments.length ? (
+        const body = comments.length && loaded ? (
             <ul>
                 {comments.map((id) => (
                     <li key={id} className="test--comment-list__item">
@@ -69,4 +94,9 @@ class CommentList extends Component {
     }
 }
 
-export default toggleOpen(CommentList)
+const mapStateToProps = (state) => ({
+    loading: commentsLoadingSelector(state),
+    loaded: commentsLoadedSelector(state)
+})
+
+export default connect(mapStateToProps, {fetchData: loadAllComments})(toggleOpen(CommentList))

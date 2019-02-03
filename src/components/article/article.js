@@ -10,7 +10,12 @@ import Loader from '../common/loader';
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
+    // Тут не разобрался - React выбрасывает warning в консоль только для text,
+    // ожидался string -> приходит null.
+    // Но id и tilte описаны аналогичным образом в TypeArticle
+    // и в нашем ArticleRecord в reducer/articles.
+    // а warning'a для них нет - почему такое избирательное поведение?
+    text: PropTypes.string,
     comments: TypeComments
 })
 
@@ -38,13 +43,20 @@ class Article extends PureComponent {
                     </button>
                     <button onClick={this.handleDelete}>Delete</button>
                 </h3>
-                <CSSTransition
-                    transitionName="article"
-                    transitionEnterTimeout={300}
-                    transitionLeaveTimeout={300}
-                >
-                    {loading ? <Loader /> : this.body}
-                </CSSTransition>
+                {loading
+                    ? <Loader />
+                    : (
+                        <CSSTransition
+                            transitionName="article"
+                            transitionEnterTimeout={300}
+                            transitionLeaveTimeout={300}
+                            transitionAppearTimeout={600}
+                            transitionAppear
+                        >
+                            {this.body}
+                        </CSSTransition>
+                    )
+                }
             </div>
         )
     }
