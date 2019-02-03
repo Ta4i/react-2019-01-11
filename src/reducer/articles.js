@@ -1,6 +1,6 @@
 import {ADD_COMMENT, DELETE_ARTICLE, LOAD_ALL_ARTICLES, START, SUCCESS, FAIL, LOAD_ARTICLE} from '../constants';
 import {arrToMap} from './utils'
-import {Record} from 'immutable';
+import {Record, merge} from 'immutable';
 
 const ArticleRecord = Record({
     id: null,
@@ -52,8 +52,11 @@ export default (articles = new ReducerState(), action) => {
             return articles.setIn(['entities', payload.id, 'loading'], true)
 
         case LOAD_ARTICLE + SUCCESS:
+            // Тут наверняка можно решить лучше с comments, но mergeIn в доке не нашёл,
+            // А если мерджить глубоко, по идее получится то, что мы имели до введения Immutable
+            // - громоздкую запись
             return articles
-                .setIn(['entities', response.id], response)
+                .setIn(['entities', response.id], merge({ comments: [] }, response))
                 .setIn(['entities', payload.id, 'loading'], false)
 
         case LOAD_ARTICLE + FAIL:

@@ -15,3 +15,12 @@
     opacity: 0.01;
     transition: opacity 300ms ease-in;
 }
+
+.comment-list-appear {
+    transform: scale(0.01);
+}
+
+.comment-list-appear.comment-list-appear-active {
+    transform: scale(1);
+    transition: transform 600ms ease-in;
+}

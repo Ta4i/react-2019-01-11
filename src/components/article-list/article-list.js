@@ -3,7 +3,11 @@ import Article from '../article';
 import accordion from '../../decorators/accordion';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {filteredArticlesSelector, loadedSelector, loadingSelector} from '../../selectors';
+import {
+    filteredArticlesSelector,
+    articlesLoadedSelector,
+    articlesLoadingSelector,
+} from '../../selectors';
 import {loadAllArticles} from '../../ac';
 import Loader from '../common/loader';
 
@@ -50,8 +54,8 @@ export default connect(
         console.log('article-list connect');
         return {
             articlesFromStore: filteredArticlesSelector(store),
-            loading: loadingSelector(store),
-            loaded: loadedSelector(store)
+            loading: articlesLoadingSelector(store),
+            loaded: articlesLoadedSelector(store)
         }
     },
     {

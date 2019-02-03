@@ -5,7 +5,9 @@ import {
     CHANGE_DATE_RANGE,
     RESET_DATE_RANGE,
     ADD_COMMENT,
-    LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL
+    LOAD_ALL_ARTICLES, LOAD_ARTICLE,
+    LOAD_ALL_COMMENTS,
+    START, SUCCESS, FAIL
 } from '../constants';
 
 export const increment = () => ({
@@ -64,6 +66,25 @@ export function loadArticle(id) {
                 payload: {id},
                 error
             }))
-
     }
 }
+
+export const loadAllComments = () =>
+    (dispatch) => {
+        dispatch({
+            type: LOAD_ALL_COMMENTS + START,
+        })
+        fetch('/api/comment')
+            .then(res => res.json())
+            .then(response => {
+                dispatch({
+                    type: LOAD_ALL_COMMENTS + SUCCESS,
+                    // Не очевидно, в каком месте разбирать запрос - в action или reducer
+                    response: response.records
+                })
+            })
+            .catch(error => dispatch({
+                type: LOAD_ALL_COMMENTS + FAIL,
+                error
+            }))
+    }
