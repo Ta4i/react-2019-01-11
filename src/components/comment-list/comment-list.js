@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './comment-list.css';
 import CommentForm from '../comment-form';
+import { loadCommentsByArticle } from '../../ac'
+import { connect } from 'react-redux'
 
 export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
@@ -19,6 +21,13 @@ class CommentList extends Component {
 
     static defaultProps = {
         comments: []
+    }
+
+    componentDidUpdate(prevProps) {
+        const { article, loadComments, isOpen } = this.props
+        if (!prevProps.isOpen && isOpen) {
+            loadComments(article.id)
+        }
     }
 
     render() {
@@ -60,8 +69,8 @@ class CommentList extends Component {
                 ))}
             </ul>
         ) : (
-            <h3 className="test--comment-list__empty">No comments yet</h3>
-        )
+                <h3 className="test--comment-list__empty">No comments yet</h3>
+            )
         return <div>
             <CommentForm articleId={articleId} />
             {body}
@@ -69,4 +78,9 @@ class CommentList extends Component {
     }
 }
 
-export default toggleOpen(CommentList)
+export default connect(
+    null,
+    (dispatch) => ({
+        loadComments: (id) => dispatch(loadCommentsByArticle(id))
+    })
+)(toggleOpen(CommentList))
