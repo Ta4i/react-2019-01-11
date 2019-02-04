@@ -20,11 +20,20 @@ export default (comments = new ReducerState(), action) => {
     const { type, response, error } = action
     switch (type) {
 
+        case LOAD_COMMENTS_BY_ARTICLE + START:
+            return comments.set('loading', true)
+
         case LOAD_COMMENTS_BY_ARTICLE + SUCCESS:
             return comments
                 .set('loading', false)
                 .set('loaded', true)
                 .set('entities', comments.entities.merge(arrToMap(response, CommentRecord)))
+
+        case LOAD_COMMENTS_BY_ARTICLE + FAIL:
+            return comments
+                .set('loading', false)
+                .set('loaded', false)
+                .set('error', error)
 
         case LOAD_ALL_COMMENTS + START:
             return comments.set('loading', true)

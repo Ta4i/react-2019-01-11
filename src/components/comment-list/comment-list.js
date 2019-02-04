@@ -7,6 +7,8 @@ import './comment-list.css';
 import CommentForm from '../comment-form';
 import { loadCommentsByArticle } from '../../ac'
 import { connect } from 'react-redux'
+import { commentsLoadingSelector } from '../../selectors'
+import Loader from '../common/loader'
 
 export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
@@ -31,7 +33,8 @@ class CommentList extends Component {
     }
 
     render() {
-        const { isOpen, toggleOpenItem } = this.props
+        const { isOpen, toggleOpenItem, loading } = this.props
+        if (loading) return <Loader />
         return (
             <div>
                 <button onClick={toggleOpenItem} className="test--comment-list__btn">
@@ -79,7 +82,9 @@ class CommentList extends Component {
 }
 
 export default connect(
-    null,
+    (store) => ({
+        loading: commentsLoadingSelector(store)
+    }),
     (dispatch) => ({
         loadComments: (id) => dispatch(loadCommentsByArticle(id))
     })
