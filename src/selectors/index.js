@@ -4,6 +4,7 @@ export const filtersSelector = (store) => store.filters
 export const loadingSelector = (store) => store.articles.loading
 export const commentsLoadingSelector = (store) => store.comments.loading
 export const loadedSelector = (store) => store.articles.loaded
+export const commentsLoadedSelector = (store) => store.comments.loaded
 export const articlesMapSelector = (state) => state.articles.entities
 export const articlesSelector = createSelector(
     articlesMapSelector,

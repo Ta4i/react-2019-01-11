@@ -7,7 +7,7 @@ import './comment-list.css';
 import CommentForm from '../comment-form';
 import { loadCommentsByArticle } from '../../ac'
 import { connect } from 'react-redux'
-import { commentsLoadingSelector } from '../../selectors'
+import { commentsLoadingSelector, commentsLoadedSelector } from '../../selectors'
 import Loader from '../common/loader'
 
 export const TypeComments = PropTypes.arrayOf(PropTypes.string)
@@ -26,8 +26,8 @@ class CommentList extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { article, loadComments, isOpen } = this.props
-        if (!prevProps.isOpen && isOpen) {
+        const { article, loadComments, isOpen, loadedMap } = this.props
+        if (!prevProps.isOpen && isOpen && (!loadedMap.has(article.id) || !loadedMap.get(article.id))) {
             loadComments(article.id)
         }
     }
@@ -83,7 +83,8 @@ class CommentList extends Component {
 
 export default connect(
     (store) => ({
-        loading: commentsLoadingSelector(store)
+        loading: commentsLoadingSelector(store),
+        loadedMap: commentsLoadedSelector(store)
     }),
     (dispatch) => ({
         loadComments: (id) => dispatch(loadCommentsByArticle(id))

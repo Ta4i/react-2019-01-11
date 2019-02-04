@@ -49,7 +49,8 @@ export function loadAllComments() {
 export function loadCommentsByArticle(articleId) {
     return {
         type: LOAD_COMMENTS_BY_ARTICLE,
-        callAPI: `/api/comment?article=${articleId}`
+        callAPI: `/api/comment?article=${articleId}`,
+        payload: { articleId }
     }
 }
 
