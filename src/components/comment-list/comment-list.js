@@ -5,6 +5,10 @@ import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './comment-list.css';
 import CommentForm from '../comment-form';
+import { loadCommentsByArticle } from '../../ac'
+import { connect } from 'react-redux'
+import { commentsLoadingSelector, commentsLoadedSelector } from '../../selectors'
+import Loader from '../common/loader'
 
 export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
@@ -21,8 +25,16 @@ class CommentList extends Component {
         comments: []
     }
 
+    componentDidUpdate(prevProps) {
+        const { article, loadComments, isOpen, loadedMap } = this.props
+        if (!prevProps.isOpen && isOpen && (!loadedMap.has(article.id) || !loadedMap.get(article.id))) {
+            loadComments(article.id)
+        }
+    }
+
     render() {
-        const { isOpen, toggleOpenItem } = this.props
+        const { isOpen, toggleOpenItem, loading } = this.props
+        if (loading) return <Loader />
         return (
             <div>
                 <button onClick={toggleOpenItem} className="test--comment-list__btn">
@@ -60,8 +72,8 @@ class CommentList extends Component {
                 ))}
             </ul>
         ) : (
-            <h3 className="test--comment-list__empty">No comments yet</h3>
-        )
+                <h3 className="test--comment-list__empty">No comments yet</h3>
+            )
         return <div>
             <CommentForm articleId={articleId} />
             {body}
@@ -69,4 +81,12 @@ class CommentList extends Component {
     }
 }
 
-export default toggleOpen(CommentList)
+export default connect(
+    (store) => ({
+        loading: commentsLoadingSelector(store),
+        loadedMap: commentsLoadedSelector(store)
+    }),
+    (dispatch) => ({
+        loadComments: (id) => dispatch(loadCommentsByArticle(id))
+    })
+)(toggleOpen(CommentList))

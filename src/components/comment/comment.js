@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {createCommentSelector} from '../../selectors';
+import { connect } from 'react-redux';
+import { commentsMapSelector } from '../../selectors';
 
 export const TypeComment = PropTypes.shape({
     user: PropTypes.string.isRequired,
@@ -10,7 +10,8 @@ export const TypeComment = PropTypes.shape({
 
 class Comment extends Component {
     render() {
-        const { user, text } = this.props.comment
+        if (!this.props.commentMap.has(this.props.id)) return null
+        const { user, text } = this.props.commentMap.get(this.props.id)
         return (
             <div>
                 <h4>{user}</h4>
@@ -25,16 +26,8 @@ Comment.propTypes = {
     id: PropTypes.string.isRequired
 }
 
-const initMapStateToProps = () => {
-    const commentSelector = createCommentSelector()
-    return (store, ownProps) => {
-
-        return {
-            comment: commentSelector(store, ownProps)
-        }
-    }
-}
-
 export default connect(
-    initMapStateToProps
+    state => ({
+        commentMap: commentsMapSelector(state),
+    }),
 )(Comment)

@@ -5,7 +5,7 @@ import {
     CHANGE_DATE_RANGE,
     RESET_DATE_RANGE,
     ADD_COMMENT,
-    LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL
+    LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL, LOAD_ALL_COMMENTS, LOAD_COMMENTS_BY_ARTICLE
 } from '../constants';
 
 export const increment = () => ({
@@ -14,17 +14,17 @@ export const increment = () => ({
 
 export const deleteArticle = (id) => ({
     type: DELETE_ARTICLE,
-    payload: {id}
+    payload: { id }
 })
 
 export const changeSelection = (selected) => ({
     type: CHANGE_SELECTION,
-    payload: {selected}
+    payload: { selected }
 })
 
 export const changeDateRange = (dateRange) => ({
     type: CHANGE_DATE_RANGE,
-    payload: {dateRange}
+    payload: { dateRange }
 })
 
 export const resetDateRange = () => ({
@@ -39,6 +39,21 @@ export function addComment(comment, articleId) {
     }
 }
 
+export function loadAllComments() {
+    return {
+        type: LOAD_ALL_COMMENTS,
+        callAPI: '/api/comment'
+    }
+}
+
+export function loadCommentsByArticle(articleId) {
+    return {
+        type: LOAD_COMMENTS_BY_ARTICLE,
+        callAPI: `/api/comment?article=${articleId}`,
+        payload: { articleId }
+    }
+}
+
 export function loadAllArticles() {
     return {
         type: LOAD_ALL_ARTICLES,
@@ -50,18 +65,18 @@ export function loadArticle(id) {
     return (dispatch) => {
         dispatch({
             type: LOAD_ARTICLE + START,
-            payload: {id}
+            payload: { id }
         })
         fetch(`/api/article/${id}`)
             .then(res => res.json())
             .then(response => dispatch({
                 type: LOAD_ARTICLE + SUCCESS,
-                payload: {id},
+                payload: { id },
                 response
             }))
             .catch(error => dispatch({
                 type: LOAD_ARTICLE + FAIL,
-                payload: {id},
+                payload: { id },
                 error
             }))
 
