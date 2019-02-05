@@ -43,7 +43,7 @@ class Article extends PureComponent {
                         transitionName="article"
                         transitionEnterTimeout={300}
                         transitionLeaveTimeout={300}>
-                          { loading ? <Loader/> :this.body }
+                          { loading ? <Loader key="loader"/> :this.body }
                       </CSSTransition>
 
             </div>
@@ -60,9 +60,9 @@ class Article extends PureComponent {
 
     get body() {
         const {article, isOpen} = this.props
-        if (!isOpen) return null
+        if (!isOpen || !article.text) return null
         return (
-            <section className="test--article_body">
+            <section className="test--article_body" key="body">
                 <p>{article.text}</p>
                 {
                     this.state.error ?

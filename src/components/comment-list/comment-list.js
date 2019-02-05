@@ -53,7 +53,7 @@ class CommentList extends Component {
                     transitionEnterTimeout={300}
                     transitionLeaveTimeout={300}
                 >
-                    {commentsLoading ? (isOpen ? <Loader /> : null) : this.body}
+                    {commentsLoading ? (isOpen ? <Loader key="loader" /> : null) : this.body}
                 </CSSTransition>
             </div>
         )
@@ -72,7 +72,7 @@ class CommentList extends Component {
         if (!isOpen || !commentsLoaded) return null;
 
         const body = comments.length ? (
-            <ul>
+            <ul key="body">
                 {comments.map((id) => (
                     <li key={id} className="test--comment-list__item">
                         <Comment id={id} />
