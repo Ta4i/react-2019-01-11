@@ -15,7 +15,7 @@ const ReducerState = Record({
 
 export default (comments = new ReducerState(), action) => {
     const { type, payload, randomId, response } = action
-
+    
     switch (type) {
         case ADD_COMMENT:
             return comments.setIn(
@@ -27,7 +27,7 @@ export default (comments = new ReducerState(), action) => {
             )
         case LOAD_COMMENTS + SUCCESS:
             return comments.mergeIn(
-                ['entities', arrToMap(response,CommentRecord)]
+                ['entities'], arrToMap(response,CommentRecord)
             )
 
         default:
