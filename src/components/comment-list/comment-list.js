@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './comment-list.css';
 import CommentForm from '../comment-form';
+import { connect } from 'react-redux'
+import { loadComments } from '../../ac'
+import Loader from '../common/loader';
 
 export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
@@ -21,8 +24,25 @@ class CommentList extends Component {
         comments: []
     }
 
+    state = {
+        error: null
+    }
+
+    componentDidCatch(error) {
+        this.setState({error})
+    }
+
+    componentDidUpdate(oldProps) {
+        const {isOpen, loadComments, article: { commentsLoaded, id }} = this.props
+
+        if (!oldProps.isOpen && isOpen && !commentsLoaded) {
+            loadComments(id)
+        }
+    }
+
     render() {
-        const { isOpen, toggleOpenItem } = this.props
+        const { isOpen, toggleOpenItem, article: { commentsLoading } } = this.props
+
         return (
             <div>
                 <button onClick={toggleOpenItem} className="test--comment-list__btn">
@@ -32,9 +52,8 @@ class CommentList extends Component {
                     transitionName="comment-list"
                     transitionEnterTimeout={300}
                     transitionLeaveTimeout={300}
-
                 >
-                    {this.body}
+                    {commentsLoading ? (isOpen ? <Loader /> : null) : this.body}
                 </CSSTransition>
             </div>
         )
@@ -44,12 +63,13 @@ class CommentList extends Component {
         const {
             article: {
                 comments = [],
-                id: articleId
+                id: articleId,
+                commentsLoaded
             },
             isOpen
         } = this.props
 
-        if (!isOpen) return null;
+        if (!isOpen || !commentsLoaded) return null;
 
         const body = comments.length ? (
             <ul>
@@ -69,4 +89,9 @@ class CommentList extends Component {
     }
 }
 
-export default toggleOpen(CommentList)
+export default connect(
+  null,
+  (dispatch) => ({
+      loadComments: (id) => dispatch(loadComments(id))
+  })
+)(toggleOpen(CommentList))
