@@ -5,6 +5,7 @@ import {
     CHANGE_DATE_RANGE,
     RESET_DATE_RANGE,
     ADD_COMMENT,
+    LOAD_COMMENTS,
     LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL
 } from '../constants';
 
@@ -65,5 +66,14 @@ export function loadArticle(id) {
                 error
             }))
 
+    }
+}
+
+export function loadComments(articleId) {
+    return {
+        type: LOAD_COMMENTS,
+        payload: {articleId},
+        callAPI: `/api/comment?article=${articleId}`,
+        
     }
 }

@@ -9,6 +9,7 @@ export const TypeComment = PropTypes.shape({
 })
 
 class Comment extends Component {
+    
     render() {
         const { user, text } = this.props.comment
         return (
