@@ -5,8 +5,8 @@ import {
     CHANGE_DATE_RANGE,
     RESET_DATE_RANGE,
     ADD_COMMENT,
-    LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL
-} from '../constants';
+    LOAD_ALL_ARTICLES, LOAD_ARTICLE, START, SUCCESS, FAIL, LOAD_COMMENTS_BY_ARTICLE_ID, RESET_COMMENTS
+} from '../constants'
 
 export const increment = () => ({
     type: INCREMENT
@@ -36,6 +36,14 @@ export function addComment(comment, articleId) {
         type: ADD_COMMENT,
         payload: { comment, articleId },
         generateId: true
+    }
+}
+
+export function loadCommentsByArticleId(articleId) {
+    return {
+        type: LOAD_COMMENTS_BY_ARTICLE_ID,
+        payload: { articleId },
+        callAPI: `/api/comment?article=${articleId}`
     }
 }
 

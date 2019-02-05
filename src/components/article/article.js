@@ -10,7 +10,7 @@ import Loader from '../common/loader';
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
+    text: PropTypes.string,
     comments: TypeComments
 })
 
@@ -22,11 +22,12 @@ class Article extends PureComponent {
         this.setState({error})
     }
     componentDidUpdate(oldProps) {
-        const {isOpen, loadArticle, article} = this.props
+        const {isOpen, loadArticle, article} = this.props;
         if (!oldProps.isOpen && isOpen && !article.text) {
             loadArticle(article.id)
         }
     }
+
     render() {
         const {article: {title, loading}, isOpen} = this.props
         return (

@@ -5,6 +5,10 @@ import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './comment-list.css';
 import CommentForm from '../comment-form';
+import { connect } from 'react-redux'
+import { commentsSelector, loadedSelector, loadingSelector } from '../../selectors'
+import { loadCommentsByArticleId } from '../../ac';
+import Loader from '../article-list/article-list'
 
 export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
@@ -17,45 +21,51 @@ class CommentList extends Component {
         toggleOpenItem: PropTypes.func.isRequired
     }
 
-    static defaultProps = {
-        comments: []
+    componentDidUpdate(prevProps) {
+        const { loadCommentsByArticleId, article, isOpen, comments } = this.props;
+        isOpen && !comments && loadCommentsByArticleId(article.id);
     }
 
     render() {
-        const { isOpen, toggleOpenItem } = this.props
+        const {isOpen, toggleOpenItem, loading} = this.props;
         return (
-            <div>
-                <button onClick={toggleOpenItem} className="test--comment-list__btn">
-                    {isOpen ? 'hide comments' : 'show comments'}
-                </button>
-                <CSSTransition
-                    transitionName="comment-list"
-                    transitionEnterTimeout={300}
-                    transitionLeaveTimeout={300}
+            (
+              <div>
+                  <button onClick={toggleOpenItem} className="test--comment-list__btn">
+                      {isOpen ? 'hide comments' : 'show comments'}
+                  </button>
+                  {loading ?
+                    <Loader /> :
+                    <CSSTransition
+                      transitionName="comment-list"
+                      transitionEnterTimeout={300}
+                      transitionLeaveTimeout={300}
 
-                >
-                    {this.body}
-                </CSSTransition>
-            </div>
-        )
+                    >
+                        {this.body}
+                    </CSSTransition>
+                  }
+              </div>
+            )
+        );
     }
 
     get body() {
         const {
             article: {
-                comments = [],
                 id: articleId
             },
-            isOpen
-        } = this.props
+            isOpen,
+            comments
+        } = this.props;
 
-        if (!isOpen) return null;
+        if (!isOpen || !comments) return null;
 
         const body = comments.length ? (
             <ul>
-                {comments.map((id) => (
-                    <li key={id} className="test--comment-list__item">
-                        <Comment id={id} />
+                {comments.map((comment) => (
+                    <li key={comment.id} className="test--comment-list__item">
+                        <Comment comment={comment} />
                     </li>
                 ))}
             </ul>
@@ -63,10 +73,21 @@ class CommentList extends Component {
             <h3 className="test--comment-list__empty">No comments yet</h3>
         )
         return <div>
-            <CommentForm articleId={articleId} />
-            {body}
-        </div>
+                <CommentForm articleId={articleId} />
+                {body}
+            </div>
     }
 }
 
-export default toggleOpen(CommentList)
+const mapStateToProps = (store, props) => ({
+    comments: commentsSelector(store, props),
+    loaded: loadedSelector(store, 'comments'),
+    loading: loadingSelector(store, 'comments')
+})
+
+export default connect(
+  mapStateToProps,
+  {
+      loadCommentsByArticleId
+  }
+)(toggleOpen(CommentList))

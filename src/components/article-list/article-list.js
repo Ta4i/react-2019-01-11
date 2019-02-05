@@ -50,8 +50,8 @@ export default connect(
         console.log('article-list connect');
         return {
             articlesFromStore: filteredArticlesSelector(store),
-            loading: loadingSelector(store),
-            loaded: loadedSelector(store)
+            loading: loadingSelector(store, 'articles'),
+            loaded: loadedSelector(store, 'articles')
         }
     },
     {

@@ -17,7 +17,7 @@ const enhancer = composeEnhancers(
         thunk,
         generateId,
         api,
-        logger
+        // logger
     )
 );
 
