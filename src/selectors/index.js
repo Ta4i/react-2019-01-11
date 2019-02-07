@@ -12,6 +12,10 @@ export const commentsSelector = (store) => store.comments.entities
 export const idSelector = (_, ownProps) => ownProps.id
 export const articleSelector = createSelector(articlesMapSelector, idSelector, (articles, id) => articles.get(id))
 
+export const totalCommentsSelector = (store) => store.comments.total
+export const commentsPaginationSelector = (store) => store.comments.pagination
+export const pageSelector = (_, ownProps) => ownProps.page
+
 export const filteredArticlesSelector = createSelector(
     filtersSelector,
     articlesSelector,
@@ -41,3 +45,14 @@ export const createCommentSelector = () => createSelector(
     }
 )
 
+export const commentsPageIdsSelector = createSelector(
+    commentsPaginationSelector,
+    pageSelector,
+    (pagination, page) => pagination.getIn([page, 'ids'])
+)
+
+export const commentsPageLoadingSelector = createSelector(
+    commentsPaginationSelector,
+    pageSelector,
+    (pagination, page) => pagination.getIn([page, 'loading'])
+)
