@@ -52,7 +52,9 @@ class Article extends PureComponent {
     }
 
     toggleOpen = () => {
+
         console.log(this.props.article.id)
+
         this.props.toggleArticle(this.props.article.id)
     }
 
@@ -66,6 +68,7 @@ class Article extends PureComponent {
                 {
                     this.state.error ?
                         null :
+
                         <CommentList
                             comments={article.comments}/>
                 }

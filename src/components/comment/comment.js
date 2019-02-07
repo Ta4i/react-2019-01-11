@@ -38,3 +38,4 @@ const initMapStateToProps = () => {
 export default connect(
     initMapStateToProps
 )(Comment)
+
