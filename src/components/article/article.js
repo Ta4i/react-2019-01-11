@@ -6,11 +6,14 @@ import './article.css';
 import {connect} from 'react-redux';
 import {deleteArticle, loadArticle} from '../../ac';
 import Loader from '../common/loader';
+import {articleSelector} from '../../selectors'
 
 export const TypeArticle = PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
+    id: PropTypes.string,
+
+    // connect
+    title: PropTypes.string,
+    text: PropTypes.string,
     comments: TypeComments
 })
 
@@ -21,21 +24,19 @@ class Article extends PureComponent {
     componentDidCatch(error) {
         this.setState({error})
     }
-    componentDidUpdate(oldProps) {
-        const {isOpen, loadArticle, article} = this.props
-        if (!oldProps.isOpen && isOpen && !article.text) {
-            loadArticle(article.id)
+    componentDidMount() {
+        const {loadArticle, article, id} = this.props
+        if (!article || (!article.text && !article.loading)) {
+            loadArticle(id)
         }
     }
     render() {
-        const {article: {title, loading}, isOpen} = this.props
+        const {article} = this.props
+        if (!article) return null
         return (
             <div>
                 <h3>
-                    {title}
-                    <button className="test--article__btn" onClick={this.toggleOpen}>
-                        {isOpen ? 'close' : 'open'}
-                    </button>
+                    {article.title}
                     <button onClick={this.handleDelete}>Delete</button>
                 </h3>
                 <CSSTransition
@@ -43,7 +44,7 @@ class Article extends PureComponent {
                     transitionEnterTimeout={300}
                     transitionLeaveTimeout={300}
                 >
-                    {loading ? <Loader /> : this.body}
+                    {article.loading ? <Loader key="loader" /> : this.body}
                 </CSSTransition>
             </div>
         )
@@ -53,15 +54,10 @@ class Article extends PureComponent {
         this.props.dispatchDeleteArticle(this.props.article.id)
     }
 
-    toggleOpen = () => {
-        this.props.toggleArticle(this.props.article.id)
-    }
-
     get body() {
-        const {article, isOpen} = this.props
-        if (!isOpen) return null
+        const {article} = this.props
         return (
-            <section className="test--article_body">
+            <section className="test--article_body" key="body">
                 <p>{article.text}</p>
                 {
                     this.state.error ?
@@ -74,13 +70,13 @@ class Article extends PureComponent {
 }
 
 Article.propTypes = {
-    isOpen: PropTypes.bool,
-    toggleArticle: PropTypes.func,
     article: TypeArticle
 }
 
 export default connect(
-    null,
+    (state, ownProps) => ({
+        article: articleSelector(state, ownProps)
+    }),
     (dispatch) => ({
         dispatchDeleteArticle: (id) => dispatch(deleteArticle(id)),
         loadArticle: (id) => dispatch(loadArticle(id))
