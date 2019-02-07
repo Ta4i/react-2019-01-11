@@ -4,6 +4,7 @@ export const filtersSelector = (store) => store.filters
 export const loadingSelector = (store) => store.articles.loading
 export const loadedSelector = (store) => store.articles.loaded
 export const articlesMapSelector = (state) => state.articles.entities
+export const commentsPagesMapSelector = (state) => state.pagedComments.pages
 export const articlesSelector = createSelector(
     articlesMapSelector,
     (articlesMap) => articlesMap.valueSeq().toArray()
@@ -11,6 +12,9 @@ export const articlesSelector = createSelector(
 export const commentsSelector = (store) => store.comments.entities
 export const idSelector = (_, ownProps) => ownProps.id
 export const articleSelector = createSelector(articlesMapSelector, idSelector, (articles, id) => articles.get(id))
+
+export const pageNumberSelector = (_, ownProps) => ownProps.pageNumber
+export const commentsPageSelector = createSelector(commentsPagesMapSelector, pageNumberSelector, (pages, pageNumber) => pages.get(pageNumber))
 
 export const filteredArticlesSelector = createSelector(
     filtersSelector,
