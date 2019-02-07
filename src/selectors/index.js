@@ -9,6 +9,10 @@ export const articlesSelector = createSelector(
     (articlesMap) => articlesMap.valueSeq().toArray()
 )
 export const commentsSelector = (store) => store.comments.entities
+export const commentsArraySelector = createSelector(
+    commentsSelector,
+    commentsMap => commentsMap.valueSeq().toArray()
+)
 export const idSelector = (_, ownProps) => ownProps.id
 export const articleSelector = createSelector(articlesMapSelector, idSelector, (articles, id) => articles.get(id))
 
