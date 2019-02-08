@@ -9,6 +9,7 @@ export const articlesSelector = createSelector(
     (articlesMap) => articlesMap.valueSeq().toArray()
 )
 export const commentsSelector = (store) => store.comments.entities
+export const commentsPagesSelector = (store) => store.comments.pageComments;
 export const idSelector = (_, ownProps) => ownProps.id
 export const articleSelector = createSelector(articlesMapSelector, idSelector, (articles, id) => articles.get(id))
 
@@ -31,6 +32,13 @@ export const filteredArticlesSelector = createSelector(
                 )
         })
     }
+)
+export const getCommentsPage = createSelector(
+  commentsPagesSelector,
+  (_, props) => props.page,
+  (comments, page) => {
+    return page && comments.get(page);
+  }
 )
 
 export const createCommentSelector = () => createSelector(
