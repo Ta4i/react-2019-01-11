@@ -6,7 +6,7 @@ import './article.css';
 import {connect} from 'react-redux';
 import {deleteArticle, loadArticle} from '../../ac';
 import Loader from '../common/loader';
-import {articleSelector} from '../../selectors'
+import {articleSelector, loadedSelector} from '../../selectors'
 
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string,
@@ -24,11 +24,19 @@ class Article extends PureComponent {
     componentDidCatch(error) {
         this.setState({error})
     }
-    componentDidMount() {
-        const {loadArticle, article, id} = this.props
-        if (!article || (!article.text && !article.loading)) {
+    // Получилось как-то топорно
+    loadArticleIfNeeded() {
+        const {loadArticle, article, id, articlesLoaded} = this.props
+        if (articlesLoaded && (!article || (!article.text && !article.loading))) {
             loadArticle(id)
         }
+    }
+    componentDidMount() {
+        this.loadArticleIfNeeded()
+    }
+
+    componentDidUpdate() {
+        this.loadArticleIfNeeded()
     }
     render() {
         const {article} = this.props
@@ -75,7 +83,8 @@ Article.propTypes = {
 
 export default connect(
     (state, ownProps) => ({
-        article: articleSelector(state, ownProps)
+        article: articleSelector(state, ownProps),
+        articlesLoaded: loadedSelector(state)
     }),
     (dispatch) => ({
         dispatchDeleteArticle: (id) => dispatch(deleteArticle(id)),
