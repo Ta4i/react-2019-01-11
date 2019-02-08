@@ -74,7 +74,7 @@ class CommentList extends Component {
             <ul>
                 {comments.map((id) => (
                     <li key={id} className="test--comment-list__item">
-                        <Comment id={id} />
+                        <Comment id={id} comment={{user: '1', text: '2'}} />
                     </li>
                 ))}
             </ul>

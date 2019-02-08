@@ -13,6 +13,8 @@ export const LOAD_ALL_ARTICLES = 'LOAD_ALL_ARTICLES'
 export const LOAD_ARTICLE = 'LOAD_ARTICLE'
 
 export const LOAD_ARTICLE_COMMENTS = 'LOAD_ARTICLE_COMMENTS'
+export const LOAD_COMMENTS = 'LOAD_COMMENTS'
+export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
 
 export const START = '_START'
 export const SUCCESS = '_SUCCESS'

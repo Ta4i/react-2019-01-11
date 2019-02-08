@@ -57,12 +57,15 @@ export default (articles = new ReducerState(), action) => {
                 .set('loaded', false)
                 .set('error', error)
 
+        //Тут не понимаю, в какой момент нужно создавать экземпляр ArticleRecord
+        // К ключу loading разве можно будет обратиться через точку, пока не отработает
+        // LOAD_ARTICLE + SUCCESS?
         case LOAD_ARTICLE + START:
             return articles.setIn(['entities', payload.id, 'loading'], true)
 
         case LOAD_ARTICLE + SUCCESS:
             return articles
-                .setIn(['entities', response.id], response)
+                .setIn(['entities', response.id], new ArticleRecord(response))
                 .setIn(['entities', payload.id, 'loading'], false)
 
         case LOAD_ARTICLE + FAIL:

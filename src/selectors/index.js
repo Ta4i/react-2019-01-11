@@ -41,3 +41,34 @@ export const createCommentSelector = () => createSelector(
     }
 )
 
+/* =========== Comments ============ */
+
+export const pageSelector = (_, ownProps) => ownProps.page;
+export const commentsPaginationSelector = (state) => state.pagination.entities;
+
+export const commentsByPageSelector = createSelector(
+    commentsPaginationSelector,
+    pageSelector,
+    // Не совсем понял, как в селекторе обрабатывать кейс с отсутствием элемента
+    // Если .get(page) undefined
+    // Или я на уровне reducer что-то упустил?
+    (pagination, page) => pagination.get(page) ? pagination.get(page).ids : []
+)
+
+export const getTotalComments = (state) => state.pagination.total
+
+export const commentsByPageLoadingSelector = createSelector(
+    commentsPaginationSelector,
+    pageSelector,
+    (pagination, page) => pagination.get(page) ? pagination.get(page).loading : false
+)
+
+export const commentsByPageLoadedSelector = createSelector(
+    commentsPaginationSelector,
+    pageSelector,
+    (pagination, page) => pagination.get(page) ? pagination.get(page).loaded : false
+)
+
+
+
+
