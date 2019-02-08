@@ -22,7 +22,15 @@ class ArticleList extends Component{
         );
     }
 
+    componentDidUpdate() {
+        this.loadData();
+    }
+
     componentDidMount() {
+        this.loadData();
+    }
+
+    loadData = () => {
         !this.props.loaded && this.props.fetchData && this.props.fetchData()
     }
 
