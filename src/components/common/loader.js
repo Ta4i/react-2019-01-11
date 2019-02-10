@@ -1,8 +1,9 @@
 import React from 'react'
+import T from '../translate';
 
 function Loader() {
     return (
-        <h3>Loading...</h3>
+        <h3><T>loading</T></h3>
     )
 }
 
