@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import {deleteArticle, loadArticle} from '../../ac';
 import Loader from '../common/loader';
 import {articleSelector} from '../../selectors'
+import T from '../translate';
 
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string,
@@ -37,7 +38,7 @@ class Article extends PureComponent {
             <div>
                 <h3>
                     {article.title}
-                    <button onClick={this.handleDelete}>Delete</button>
+                    <button onClick={this.handleDelete}><T>delete-article</T></button>
                 </h3>
                 <CSSTransition
                     transitionName="article"

@@ -22,3 +22,9 @@ export const SUCCESS = '_SUCCESS'
 export const FAIL = '_FAIL'
 
 export const COMMENTS_PER_PAGE = 5
+
+export const LANGUAGES = {
+  ru: 'ru',
+  en: 'en',
+};
+export const DEFAULT_LANGUAGE = LANGUAGES.ru;

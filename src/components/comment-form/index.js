@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { addComment } from '../../ac'
 import './style.css'
+import T from '../translate';
 
 class CommentForm extends Component {
     state = {
@@ -12,13 +13,13 @@ class CommentForm extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                user:{' '}
+                <T>form-user</T>:{' '}
                 <input
                     value={this.state.user}
                     onChange={this.handleChange('user')}
                     className={this.getClassName('user')}
                 />
-                comment:{' '}
+                <T>form-comment</T>:{' '}
                 <input
                     value={this.state.text}
                     onChange={this.handleChange('text')}

@@ -1,10 +1,11 @@
 import React, {Component} from 'react'
+import T from '../translate';
 
 class UserForm extends Component {
     render() {
         return (
             <div>
-                Username:
+                <T>form-username</T>:
                 <input value={this.props.value} onChange={this.handleChange}/>
             </div>
         )
