@@ -1,8 +1,9 @@
 import React from 'react'
+import localize from '../locale'
 
 function Loader() {
     return (
-        <h3>Loading...</h3>
+        <h3>{localize('loading')}...</h3>
     )
 }
 
