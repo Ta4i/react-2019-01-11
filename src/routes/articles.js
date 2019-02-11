@@ -2,10 +2,11 @@ import React, {Component} from 'react'
 import ArticleList from '../components/article-list';
 import {Route} from 'react-router-dom';
 import Article from '../components/article';
-import {Switch} from 'react-router-dom';
+import i18n from '../components/i18n'
 
 class ArticlesPage extends Component {
     render() {
+        
         return (
             <div>
                 <ArticleList />
@@ -15,11 +16,12 @@ class ArticlesPage extends Component {
     }
 
     getArticle = ({match}) => {
+        const {t} = this.props
         if (match === null){
-            return <h2>Please select an article</h2>
+            return <h2>{t('Please select an article')}</h2>
         }
         return <Article key={match.params.id} id={match.params.id}/>
     }
 }
 
-export default ArticlesPage
+export default i18n(ArticlesPage)

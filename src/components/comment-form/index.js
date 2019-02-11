@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { addComment } from '../../ac'
 import './style.css'
+import i18n from '../i18n'
 
 class CommentForm extends Component {
     state = {
@@ -10,15 +11,16 @@ class CommentForm extends Component {
     }
 
     render() {
+        const {t} = this.props
         return (
             <form onSubmit={this.handleSubmit}>
-                user:{' '}
+                {t('user')}:{' '}
                 <input
                     value={this.state.user}
                     onChange={this.handleChange('user')}
                     className={this.getClassName('user')}
                 />
-                comment:{' '}
+                {t('comment')}:{' '}
                 <input
                     value={this.state.text}
                     onChange={this.handleChange('text')}
@@ -69,4 +71,4 @@ export default connect(
     (dispatch, ownProps) => ({
         addComment: (comment) => dispatch(addComment(comment, ownProps.articleId))
     })
-)(CommentForm)
+)(i18n(CommentForm))
