@@ -1,8 +1,11 @@
 import React from 'react'
+import { Consumer as LangConsumer } from '../../contexts/language'
 
 function Loader() {
     return (
-        <h3>Loading...</h3>
+        <h3>
+            <LangConsumer>{lang => lang.loading}</LangConsumer>
+        </h3>
     )
 }
 

@@ -1,12 +1,13 @@
-import React, {PureComponent} from 'react'
-import CommentList, {TypeComments} from '../comment-list/comment-list';
+import React, { PureComponent } from 'react'
+import CommentList, { TypeComments } from '../comment-list/comment-list';
 import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './article.css';
-import {connect} from 'react-redux';
-import {deleteArticle, loadArticle} from '../../ac';
+import { connect } from 'react-redux';
+import { deleteArticle, loadArticle } from '../../ac';
 import Loader from '../common/loader';
-import {articleSelector} from '../../selectors'
+import { articleSelector } from '../../selectors'
+import { Consumer as LangConsumer } from '../../contexts/language'
 
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string,
@@ -22,22 +23,24 @@ class Article extends PureComponent {
         error: null
     }
     componentDidCatch(error) {
-        this.setState({error})
+        this.setState({ error })
     }
     componentDidMount() {
-        const {loadArticle, article, id} = this.props
+        const { loadArticle, article, id } = this.props
         if (!article || (!article.text && !article.loading)) {
             loadArticle(id)
         }
     }
     render() {
-        const {article} = this.props
+        const { article } = this.props
         if (!article) return null
         return (
             <div>
                 <h3>
                     {article.title}
-                    <button onClick={this.handleDelete}>Delete</button>
+                    <button onClick={this.handleDelete}>
+                        <LangConsumer>{lang => lang.delete}</LangConsumer>
+                    </button>
                 </h3>
                 <CSSTransition
                     transitionName="article"
@@ -55,7 +58,7 @@ class Article extends PureComponent {
     }
 
     get body() {
-        const {article} = this.props
+        const { article } = this.props
         return (
             <section className="test--article_body" key="body">
                 <p>{article.text}</p>
