@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import {deleteArticle, loadArticle} from '../../ac';
 import Loader from '../common/loader';
 import {articleSelector} from '../../selectors'
+import { Consumer as LangConsumer } from '../../contexts/lang';
 
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string,
@@ -34,19 +35,25 @@ class Article extends PureComponent {
         const {article} = this.props
         if (!article) return null
         return (
-            <div>
-                <h3>
-                    {article.title}
-                    <button onClick={this.handleDelete}>Delete</button>
-                </h3>
-                <CSSTransition
-                    transitionName="article"
-                    transitionEnterTimeout={300}
-                    transitionLeaveTimeout={300}
-                >
-                    {article.loading ? <Loader key="loader" /> : this.body}
-                </CSSTransition>
-            </div>
+          <LangConsumer>
+              {contextLang => (
+                <div>
+                    <h3>
+                        {article.title}
+                        <button onClick={this.handleDelete}>
+                            {contextLang.btn.delete}
+                        </button>
+                    </h3>
+                    <CSSTransition
+                      transitionName="article"
+                      transitionEnterTimeout={300}
+                      transitionLeaveTimeout={300}
+                    >
+                        {article.loading ? <Loader key="loader" /> : this.body}
+                    </CSSTransition>
+                </div>
+              )}
+          </LangConsumer>
         )
     }
 
