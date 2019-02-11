@@ -1,5 +1,11 @@
 import React from 'react'
 import texts from '../../texts'
+import enIcon from './en.png'
+import ruIcon from './ru.png'
+
+const icons = new Map()
+icons.set('en', enIcon)
+icons.set('ru', ruIcon)
 
 function LanguageSwitch(props) {
     const styles = {
@@ -17,7 +23,7 @@ function LanguageSwitch(props) {
     })
     return (
         <div style={styles.container}>
-            <img src={`${props.value}.png`} alt={props.value} style={styles.image} />
+            <img src={icons.get(props.value)} alt={props.value} style={styles.image} />
             <select value={props.value}
                 onChange={(event) => props.onChange(event.target.value)}>
                 {options}
