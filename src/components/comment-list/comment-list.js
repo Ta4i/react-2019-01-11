@@ -10,7 +10,6 @@ import Loader from '../common/loader';
 import { loadArticleComments } from '../../ac';
 import { Consumer as AuthConsumer } from '../../contexts/auth';
 import { Consumer as LangConsumer } from '../../contexts/language'
-import texts from '../../texts'
 
 export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
@@ -45,7 +44,7 @@ class CommentList extends Component {
             <div>
                 <button onClick={toggleOpenItem} className="test--comment-list__btn">
                     <LangConsumer>
-                        {lang => isOpen ? texts[lang].hideComments : texts[lang].showComments}
+                        {lang => isOpen ? lang.hideComments : lang.showComments}
                     </LangConsumer>
                 </button>
                 <AuthConsumer>
@@ -88,7 +87,7 @@ class CommentList extends Component {
             </ul>
         ) : (
                 <h3 className="test--comment-list__empty">
-                    <LangConsumer>{lang => texts[lang].noComments}</LangConsumer>
+                    <LangConsumer>{lang => lang.noComments}</LangConsumer>
                 </h3>
             )
         return <div>

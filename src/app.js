@@ -34,7 +34,7 @@ class App extends Component {
             maxWidth: '600px'
         }
         return (
-            <LangProvider value={this.state.language}>
+            <LangProvider value={texts[this.state.language]}>
                 <AuthProvider value={{ contextUserName: this.state.userName }}>
                     <div>
                         <div style={style}>
@@ -44,16 +44,16 @@ class App extends Component {
                         <LangConsumer>
                             {language => <React.Fragment>
                                 <Menu>
-                                    <MenuItem to={'/counter'}>{texts[language].counter}</MenuItem>
-                                    <MenuItem to={'/filters'}>{texts[language].filters}</MenuItem>
-                                    <MenuItem to={'/articles'}>{texts[language].articles}</MenuItem>
-                                    <MenuItem to={'/comments/1'}>{texts[language].comments}</MenuItem>
+                                    <MenuItem to={'/counter'}>{language.counter}</MenuItem>
+                                    <MenuItem to={'/filters'}>{language.filters}</MenuItem>
+                                    <MenuItem to={'/articles'}>{language.articles}</MenuItem>
+                                    <MenuItem to={'/comments/1'}>{language.comments}</MenuItem>
                                 </Menu>
                                 <Switch>
                                     <Route path={"/counter"} component={Counter} exact strict />
                                     <Route path={"/filters"} component={Filters} />
                                     <Route path={"/articles/new"} render={() => <h1>
-                                        {texts[language].newArticle}
+                                        {language.newArticle}
                                     </h1>} />
                                     <Route path={"/articles"} component={ArticlesPage} />
                                     <Route path={"/comments"} component={CommentsPage} />

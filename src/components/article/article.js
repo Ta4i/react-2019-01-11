@@ -8,7 +8,6 @@ import { deleteArticle, loadArticle } from '../../ac';
 import Loader from '../common/loader';
 import { articleSelector } from '../../selectors'
 import { Consumer as LangConsumer } from '../../contexts/language'
-import texts from '../../texts'
 
 export const TypeArticle = PropTypes.shape({
     id: PropTypes.string,
@@ -40,7 +39,7 @@ class Article extends PureComponent {
                 <h3>
                     {article.title}
                     <button onClick={this.handleDelete}>
-                        <LangConsumer>{lang => texts[lang].delete}</LangConsumer>
+                        <LangConsumer>{lang => lang.delete}</LangConsumer>
                     </button>
                 </h3>
                 <CSSTransition

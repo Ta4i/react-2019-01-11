@@ -4,7 +4,6 @@ import 'react-day-picker/lib/style.css';
 import { connect } from 'react-redux';
 import { changeDateRange, resetDateRange } from '../../ac';
 import { Consumer as LangConsumer } from '../../contexts/language'
-import texts from '../../texts'
 
 class DateRange extends React.Component {
     static defaultProps = {
@@ -26,13 +25,13 @@ class DateRange extends React.Component {
                     <LangConsumer>
                         {(language) => {
                             if (!from && !to) {
-                                return texts[language].selectFirstDay
+                                return language.selectFirstDay
                             } else if (from && !to) {
-                                return texts[language].selectLastDay
+                                return language.selectLastDay
                             } else if (from && to) {
                                 return <React.Fragment>
-                                    {`${texts[language].selectedRange}: ${from.toLocaleDateString()} - ${to.toLocaleDateString()}`}
-                                    <button className="link" onClick={this.handleResetClick}>{texts[language].reset}</button>
+                                    {`${language.selectedRange}: ${from.toLocaleDateString()} - ${to.toLocaleDateString()}`}
+                                    <button className="link" onClick={this.handleResetClick}>{language.reset}</button>
                                 </React.Fragment>
                             }
                         }}

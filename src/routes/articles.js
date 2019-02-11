@@ -3,7 +3,6 @@ import ArticleList from '../components/article-list';
 import { Route } from 'react-router-dom';
 import Article from '../components/article';
 import { Consumer as LangConsumer } from '../contexts/language'
-import texts from '../texts'
 
 class ArticlesPage extends Component {
     render() {
@@ -19,7 +18,7 @@ class ArticlesPage extends Component {
         if (match === null) {
             return <h2>
                 <LangConsumer>
-                    {(language) => texts[language].selectArticle}
+                    {(language) => language.selectArticle}
                 </LangConsumer>
             </h2>
         }
