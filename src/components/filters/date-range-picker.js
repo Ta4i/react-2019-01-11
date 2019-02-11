@@ -1,8 +1,10 @@
 import React from 'react';
 import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
-import {connect} from 'react-redux';
-import {changeDateRange, resetDateRange} from '../../ac';
+import { connect } from 'react-redux';
+import { changeDateRange, resetDateRange } from '../../ac';
+import { Consumer as LangConsumer } from '../../contexts/language'
+import texts from '../../texts'
 
 class DateRange extends React.Component {
     static defaultProps = {
@@ -21,18 +23,20 @@ class DateRange extends React.Component {
         return (
             <div className="RangeExample">
                 <p>
-                    {!from && !to && 'Please select the first day.'}
-                    {from && !to && 'Please select the last day.'}
-                    {from &&
-                    to &&
-                    `Selected from ${from.toLocaleDateString()} to
-                ${to.toLocaleDateString()}`}{' '}
-                    {from &&
-                    to && (
-                        <button className="link" onClick={this.handleResetClick}>
-                            Reset
-                        </button>
-                    )}
+                    <LangConsumer>
+                        {(language) => {
+                            if (!from && !to) {
+                                return texts[language].selectFirstDay
+                            } else if (from && !to) {
+                                return texts[language].selectLastDay
+                            } else if (from && to) {
+                                return <React.Fragment>
+                                    {`${texts[language].selectedRange}: ${from.toLocaleDateString()} - ${to.toLocaleDateString()}`}
+                                    <button className="link" onClick={this.handleResetClick}>{texts[language].reset}</button>
+                                </React.Fragment>
+                            }
+                        }}
+                    </LangConsumer>
                 </p>
                 <DayPicker
                     className="Selectable"

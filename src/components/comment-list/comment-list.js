@@ -5,10 +5,12 @@ import PropTypes from 'prop-types';
 import CSSTransition from 'react-addons-css-transition-group'
 import './comment-list.css';
 import CommentForm from '../comment-form';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import Loader from '../common/loader';
-import {loadArticleComments} from '../../ac';
-import {Consumer as AuthConsumer} from '../../contexts/auth';
+import { loadArticleComments } from '../../ac';
+import { Consumer as AuthConsumer } from '../../contexts/auth';
+import { Consumer as LangConsumer } from '../../contexts/language'
+import texts from '../../texts'
 
 export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
@@ -42,7 +44,9 @@ class CommentList extends Component {
         return (
             <div>
                 <button onClick={toggleOpenItem} className="test--comment-list__btn">
-                    {isOpen ? 'hide comments' : 'show comments'}
+                    <LangConsumer>
+                        {lang => isOpen ? texts[lang].hideComments : texts[lang].showComments}
+                    </LangConsumer>
                 </button>
                 <AuthConsumer>
                     {(contextValue) => (<h3>{contextValue.contextUserName}</h3>)}
@@ -83,8 +87,10 @@ class CommentList extends Component {
                 ))}
             </ul>
         ) : (
-            <h3 className="test--comment-list__empty">No comments yet</h3>
-        )
+                <h3 className="test--comment-list__empty">
+                    <LangConsumer>{lang => texts[lang].noComments}</LangConsumer>
+                </h3>
+            )
         return <div>
             <CommentForm articleId={articleId} />
             {body}
@@ -94,5 +100,5 @@ class CommentList extends Component {
 
 export default connect(
     null,
-    {loadArticleComments}
+    { loadArticleComments }
 )(toggleOpen(CommentList))
