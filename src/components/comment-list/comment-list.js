@@ -9,6 +9,7 @@ import {connect} from 'react-redux'
 import Loader from '../common/loader';
 import {loadArticleComments} from '../../ac';
 import {Consumer as AuthConsumer} from '../../contexts/auth';
+import Translate from '../translate'
 
 export const TypeComments = PropTypes.arrayOf(PropTypes.string)
 
@@ -42,7 +43,7 @@ class CommentList extends Component {
         return (
             <div>
                 <button onClick={toggleOpenItem} className="test--comment-list__btn">
-                    {isOpen ? 'hide comments' : 'show comments'}
+                    <Translate>{isOpen ? 'hide-comments' : 'show-comments'}</Translate>
                 </button>
                 <AuthConsumer>
                     {(contextValue) => (<h3>{contextValue.contextUserName}</h3>)}
@@ -83,7 +84,7 @@ class CommentList extends Component {
                 ))}
             </ul>
         ) : (
-            <h3 className="test--comment-list__empty">No comments yet</h3>
+            <h3 className="test--comment-list__empty"><Translate>no-comments</Translate></h3>
         )
         return <div>
             <CommentForm articleId={articleId} />
