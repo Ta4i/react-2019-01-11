@@ -3,6 +3,7 @@ import DayPicker, { DateUtils } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
 import {connect} from 'react-redux';
 import {changeDateRange, resetDateRange} from '../../ac';
+import i18n from '../i18n'
 
 class DateRange extends React.Component {
     static defaultProps = {
@@ -18,19 +19,20 @@ class DateRange extends React.Component {
     render() {
         const { from, to } = this.props.dateRange;
         const modifiers = { start: from, end: to };
+        const {t} = this.props
         return (
             <div className="RangeExample">
                 <p>
-                    {!from && !to && 'Please select the first day.'}
-                    {from && !to && 'Please select the last day.'}
+                    {!from && !to && t('Please select the first day')}
+                    {from && !to && t('Please select the last day')}
                     {from &&
                     to &&
-                    `Selected from ${from.toLocaleDateString()} to
+                    `${t('Selected from')} ${from.toLocaleDateString()} ${t('to')}
                 ${to.toLocaleDateString()}`}{' '}
                     {from &&
                     to && (
                         <button className="link" onClick={this.handleResetClick}>
-                            Reset
+                            {t('Reset')}
                         </button>
                     )}
                 </p>
@@ -54,4 +56,4 @@ export default connect(
         changeDateRange,
         resetDateRange
     }
-)(DateRange)
+)(i18n(DateRange))
