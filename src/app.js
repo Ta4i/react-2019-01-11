@@ -10,6 +10,7 @@ import Menu from './components/menu';
 import MenuItem from './components/menu-item';
 import {Provider as AuthProvider} from './contexts/auth';
 import LangProvider from './components/i18n/lang-provider'
+import Runner from './components/runner';
 
 class App extends Component {
     state = {
@@ -30,6 +31,7 @@ class App extends Component {
                 <AuthProvider value={{contextUserName: this.state.userName}}>
                     <div>
                         <header>
+                            <Runner />
                             <button onClick={this.handleLanguageChange('en')}>Eng</button>
                             <button onClick={this.handleLanguageChange('ru')}>Rus</button>
                         </header>
